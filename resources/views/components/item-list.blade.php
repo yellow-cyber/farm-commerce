@@ -2,7 +2,7 @@
     <div class="row border-bottom pb-3">
         <div class="col-sm-12 col-md-6">
             <div class="d-none d-md-block h4 font-weight-bold pt-4 pb-0">
-                Shop
+                Shopee
             </div>
         </div>
         
