@@ -8,6 +8,37 @@ require("./bootstrap");
 
 window.Vue = require("vue");
 
+import VueRouter from "vue-router";
+Vue.use(VueRouter);
+
+const routes = [
+    {
+        path: "/",
+        component: require("./components/Home.vue").default
+    },
+    {
+        path: "/shop",
+        component: require("./components/Shop.vue").default
+    },
+    {
+        path: "/admin",
+        component: require("./components/Admin.vue").default
+    },
+    {
+        path: "/contact",
+        component: require("./components/Contact.vue").default
+    },
+    {
+        path: "/about",
+        component: require("./components/About.vue").default
+    }
+];
+
+const router = new VueRouter({
+    mode: "history",
+    routes // short for `routes: routes`
+});
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -28,5 +59,6 @@ Vue.component("search-bar", require("./components/SearchBar.vue").default);
  */
 
 const app = new Vue({
-    el: "#app"
+    el: "#app",
+    router
 });

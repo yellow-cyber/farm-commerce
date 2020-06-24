@@ -22,11 +22,10 @@
 </head>
 <body>
     <div id="app">
-      
         <x-navbar />
-
         <main>
-            @yield('content')
+           <router-view></router-view>
+           @yield('content')
         </main>
     </div>
 </body>

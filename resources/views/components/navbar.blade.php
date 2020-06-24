@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <router-link class="navbar-brand" to="/">
             {{ config('app.name', 'Farm') }}
-        </a>
+        </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,17 +11,18 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                    <router-link class="nav-link" to="/">Home</router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('shop') }}">{{ __('Shop') }}</a>
+                    <router-link class="nav-link" to="/shop">Shop</router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('about') }}">{{ __('About Us') }}</a>
+                    <router-link class="nav-link" to="/about">About</router-link>
                 </li>
-                <li class="mr-5 nav-item">
-                    <a class="nav-link" href="{{ route('contact') }}">{{ __('Contact') }}</a>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/contact">Contact</router-link>
                 </li>
+               
             </ul>
 
             <!-- Right Side Of Navbar -->
