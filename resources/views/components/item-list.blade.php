@@ -1,8 +1,8 @@
-<div class="container ">
-    <div class="row">
+<div class="container pt-5">
+    <div class="row border-bottom pb-3">
         <div class="col-sm-12 col-md-6">
             <div class="d-none d-md-block h4 font-weight-bold pt-4 pb-0">
-                Product List
+                Shop
             </div>
         </div>
         
@@ -12,7 +12,7 @@
       
         
     </div>
-    <div class="row row-cols-1 row-cols-md-4 pb-4 pt-3">
+    <div class="row row-cols-1 row-cols-md-4 pb-4 pt-5">
        
     <x-item />
     <x-item />

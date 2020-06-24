@@ -1,4 +1,3 @@
-<nav class="navbar navbar-light bg-white py-4">
+<nav class="navbar navbar-light bg-white py-2">
   
-    
 </nav>
