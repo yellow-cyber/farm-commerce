@@ -25,6 +25,11 @@ const routes = [
         component: require("./components/Admin.vue").default
     },
     {
+        path: "/admin/users",
+        component: require("./components/ManageUsers.vue").default
+    },
+
+    {
         path: "/contact",
         component: require("./components/Contact.vue").default
     },
