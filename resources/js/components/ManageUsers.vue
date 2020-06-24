@@ -4,9 +4,8 @@
             <div class="h5 font-weight-bold col-6 pt-3">Manage Users</div>
             <div class="col-6 text-right">
                 <button
-                    class="rounded-pill btn btn-outline-success"
-                    data-toggle="modal"
-                    data-target="#addNew"
+                    class="rounded-0 btn btn-outline-success"
+                    @click="newModal"
                 >
                     Add New User
                 </button>
@@ -17,20 +16,29 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Cash</th>
+                    <th scope="col">Role</th>
                     <th scope="col">Date Joined</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark Henry</td>
+                <tr v-for="user in users" :key="user.id">
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
                     <td>128</td>
-                    <td>June 12, 2020</td>
+                    <td>{{ user.profile.role | roleFilter }}</td>
+                    <!-- <td v-if="user.profile.role">Administrator</td>
+                    <td v-else>Standard User</td> -->
+                    <td>{{ user.created_at | prettyDate }}</td>
                     <td>
-                        <button class="rounded-circle btn btn-outline-primary">
+                        <button
+                            @click="editModal(user)"
+                            class="rounded-0 btn btn-outline-primary"
+                        >
                             <svg
                                 class="bi bi-pencil"
                                 width="1em"
@@ -51,7 +59,10 @@
                         </button>
                     </td>
                     <td>
-                        <button class="rounded-circle btn btn-outline-danger">
+                        <button
+                            @click="deleteUser(user.id)"
+                            class="rounded-0 btn btn-outline-danger"
+                        >
                             <svg
                                 class="bi bi-trash"
                                 width="1em"
@@ -70,58 +81,249 @@
                             </svg>
                         </button>
                     </td>
+                    <!-- Modal -->
+                    <div
+                        class="modal fade text-left"
+                        id="addNew"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="addNewLabel"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content rounded-0 border-0">
+                                <div class="modal-header ">
+                                    <h5 class="modal-title" id="addNewLabel">
+                                        {{
+                                            editMode
+                                                ? "Edit User"
+                                                : "Add New User"
+                                        }}
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form
+                                    @submit.prevent="
+                                        editMode ? updateUser() : createUser()
+                                    "
+                                >
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <input
+                                                    v-model="form.name"
+                                                    type="text"
+                                                    name="name"
+                                                    class="form-control rounded-0"
+                                                    :class="{
+                                                        'is-invalid': form.errors.has(
+                                                            'name'
+                                                        )
+                                                    }"
+                                                />
+                                                <has-error
+                                                    :form="form"
+                                                    field="name"
+                                                ></has-error>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input
+                                                    v-model="form.email"
+                                                    type="email"
+                                                    name="email"
+                                                    class="form-control rounded-0"
+                                                    :class="{
+                                                        'is-invalid': form.errors.has(
+                                                            'email'
+                                                        )
+                                                    }"
+                                                />
+                                                <has-error
+                                                    :form="form"
+                                                    field="email"
+                                                ></has-error>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Role</label>
+                                                <select
+                                                    v-model="form.role"
+                                                    type="role"
+                                                    name="role"
+                                                    class="form-control rounded-0"
+                                                    :class="{
+                                                        'is-invalid': form.errors.has(
+                                                            'role'
+                                                        )
+                                                    }"
+                                                >
+                                                    <option value="1"
+                                                        >Administrator</option
+                                                    >
+                                                    <option value="0"
+                                                        >Standard User</option
+                                                    >
+                                                </select>
+                                                <has-error
+                                                    :form="form"
+                                                    field="role"
+                                                ></has-error>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input
+                                                    v-model="form.password"
+                                                    type="password"
+                                                    name="password"
+                                                    class="form-control rounded-0"
+                                                    :class="{
+                                                        'is-invalid': form.errors.has(
+                                                            'password'
+                                                        )
+                                                    }"
+                                                />
+                                                <has-error
+                                                    :form="form"
+                                                    field="password"
+                                                ></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-danger rounded-0"
+                                            data-dismiss="modal"
+                                        >
+                                            Close
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-success rounded-0"
+                                        >
+                                            {{ editMode ? "Update" : "Save" }}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Modal -->
                 </tr>
             </tbody>
         </table>
-
-        <!-- Modal -->
-        <div
-            class="modal fade"
-            id="addNew"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="addNewLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog modal-dialog-centered ">
-                <div class="modal-content">
-                    <div class="modal-header ">
-                        <h5 class="modal-title" id="addNewLabel">
-                            Add New User
-                        </h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-outline-danger rounded-pill"
-                            data-dismiss="modal"
-                        >
-                            Close
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-outline-success rounded-pill"
-                        >
-                            Save changes
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            form: new Form({
+                id: "",
+                name: "",
+                email: "",
+                password: "",
+                role: 0
+            }),
+            users: {},
+            editMode: false
+        };
+    },
+    mounted() {
+        this.loadUser();
+    },
+    methods: {
+        newModal() {
+            this.editMode = false;
+            this.form.reset();
+            $("#addNew").modal("show");
+        },
+        createUser() {
+            this.$Progress.start();
+            this.form
+                .post("/api/user")
+                .then(({ data }) => {
+                    this.$Progress.finish();
+                    $("#addNew").modal("hide");
+                    this.loadUser();
+                    Toast.fire({
+                        icon: "success",
+                        title: "User Created Successfully"
+                    });
+                })
+                .catch(err => {
+                    Toast.fire({
+                        icon: "warning",
+                        title: "Invalid Form!"
+                    });
+                    this.$Progress.fail();
+                });
+        },
+        loadUser() {
+            axios.get("/api/user").then(res => {
+                this.users = res.data[0];
+            });
+        },
+        deleteUser(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(result => {
+                if (result.value) {
+                    this.form.delete("/api/user/" + id).then(({ data }) => {
+                        Swal.fire(
+                            "Deleted!",
+                            "User deleted successfully.",
+                            "success"
+                        );
+                        this.loadUser();
+                    });
+                }
+            });
+        },
+        editModal(user) {
+            this.editMode = true;
+            $("#addNew").modal("show");
+            user["role"] = user.profile.role;
+            this.form.fill(user);
+        },
+        updateUser() {
+            this.$Progress.start();
+            this.form
+                .put("/api/user/" + this.form.id)
+                .then(({ data }) => {
+                    this.$Progress.finish();
+                    $("#addNew").modal("hide");
+                    this.loadUser();
+                    Toast.fire({
+                        icon: "success",
+                        title: "User Updated Successfully"
+                    });
+                })
+                .catch(err => {
+                    Toast.fire({
+                        icon: "warning",
+                        title: "Invalid Form!"
+                    });
+                    this.$Progress.fail();
+                });
+        }
+    }
+};
 </script>

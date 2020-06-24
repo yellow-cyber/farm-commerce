@@ -46,6 +46,9 @@ class User extends Authenticatable
                 'role'=>0
             ]);
         });
+        static::deleted(function($user){
+            $user->profile()->delete();
+        });
     }
 
     public function profile()
