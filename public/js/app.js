@@ -2428,6 +2428,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2497,9 +2511,16 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.value) {
+          _this3.$Progress.start();
+
           _this3.form["delete"]("/api/user/" + id).then(function (_ref2) {
             var data = _ref2.data;
-            Swal.fire("Deleted!", "User deleted successfully.", "success");
+            Toast.fire({
+              icon: "success",
+              title: "User deleted successfully"
+            });
+
+            _this3.$Progress.finish();
 
             _this3.loadUser();
           });
@@ -63949,7 +63970,41 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(1, true),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm._f("prettyDate")(user.created_at)) +
+                              "\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 "
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "text-sm leading-5 text-gray-500" },
+                            [
+                              _c("span", [_vm._v("₱")]),
+                              _vm._v(
+                                _vm._s(_vm._f("dec2")(user.profile.cash)) +
+                                  "\n                                "
+                              )
+                            ]
+                          )
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
                         "td",
@@ -64282,7 +64337,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("div", { staticClass: "mb-4" }, [
-                                _vm._m(2),
+                                _vm._m(1),
                                 _vm._v(" "),
                                 _c(
                                   "div",
@@ -64291,6 +64346,14 @@ var render = function() {
                                     _c(
                                       "select",
                                       {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.form.role,
+                                            expression: "form.role"
+                                          }
+                                        ],
                                         staticClass:
                                           "block appearance-none w-full bg-grey-lighter border-b border-grey-light text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none",
                                         class: {
@@ -64298,7 +64361,36 @@ var render = function() {
                                             "role"
                                           )
                                         },
-                                        attrs: { id: "role" }
+                                        attrs: {
+                                          id: "role",
+                                          type: "role",
+                                          name: "role"
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.$set(
+                                              _vm.form,
+                                              "role",
+                                              $event.target.multiple
+                                                ? $$selectedVal
+                                                : $$selectedVal[0]
+                                            )
+                                          }
+                                        }
                                       },
                                       [
                                         _c(
@@ -64361,7 +64453,10 @@ var render = function() {
                                         "password"
                                       )
                                     },
-                                    attrs: { type: "text", name: "password" },
+                                    attrs: {
+                                      type: "password",
+                                      name: "password"
+                                    },
                                     domProps: { value: _vm.form.password },
                                     on: {
                                       input: function($event) {
@@ -64449,6 +64544,19 @@ var staticRenderFns = [
           },
           [
             _vm._v(
+              "\n                                Date Joined\n                            "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+          },
+          [
+            _vm._v(
               "\n                                Cash\n                            "
             )
           ]
@@ -64494,22 +64602,6 @@ var staticRenderFns = [
         )
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "td",
-      { staticClass: "px-6 py-4 whitespace-no-wrap border-b border-gray-200" },
-      [
-        _c("div", { staticClass: "text-sm leading-5 text-gray-900" }, [
-          _vm._v(
-            "\n                                    P1000.00\n                                "
-          )
-        ])
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -80939,6 +81031,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("roleFilter", function (value)
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("prettyDate", function (value) {
   return moment__WEBPACK_IMPORTED_MODULE_1___default()(value).format("LLL");
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("dec2", function (value) {
+  return value.toFixed(2);
 });
 
 /***/ }),

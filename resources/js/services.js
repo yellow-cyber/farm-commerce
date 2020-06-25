@@ -43,3 +43,6 @@ Vue.filter("roleFilter", function(value) {
 Vue.filter("prettyDate", function(value) {
     return moment(value).format("LLL");
 });
+Vue.filter("dec2", function(value) {
+    return value.toFixed(2);
+});

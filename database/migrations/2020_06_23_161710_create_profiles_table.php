@@ -22,6 +22,7 @@ class CreateProfilesTable extends Migration
             $table->text('description')->nullable();
             $table->string('url')->nullable();
             $table->string('image')->nullable();
+            $table->float('cash')->nullable();
             $table->timestamps();
         });
     }

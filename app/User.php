@@ -43,7 +43,8 @@ class User extends Authenticatable
         static::created(function($user){
             $user->profile()->create([
                 'title'=> $user->username,
-                'role'=>0
+                'role'=>0,
+                'cash'=>1000
             ]);
         });
         static::deleted(function($user){

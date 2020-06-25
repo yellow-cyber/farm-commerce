@@ -44,6 +44,11 @@
                                 >
                                     Name
                                 </th>
+                                <th
+                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                    Date Joined
+                                </th>
 
                                 <th
                                     class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
@@ -89,14 +94,20 @@
                                         </div>
                                     </div>
                                 </td>
+                                <td
+                                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                                >
+                                    {{ user.created_at | prettyDate }}
+                                </td>
 
                                 <td
-                                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                                    class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 "
                                 >
                                     <div
-                                        class="text-sm leading-5 text-gray-900"
+                                        class="text-sm leading-5 text-gray-500"
                                     >
-                                        P1000.00
+                                        <span>&#8369;</span
+                                        >{{ user.profile.cash | dec2 }}
                                     </div>
                                 </td>
 
@@ -281,6 +292,9 @@
                                                     <select
                                                         class="block appearance-none w-full bg-grey-lighter border-b border-grey-light text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none"
                                                         id="role"
+                                                        v-model="form.role"
+                                                        type="role"
+                                                        name="role"
                                                         :class="{
                                                             'is-invalid': form.errors.has(
                                                                 'role'
@@ -311,7 +325,7 @@
                                                 </label>
                                                 <input
                                                     v-model="form.password"
-                                                    type="text"
+                                                    type="password"
                                                     name="password"
                                                     class="no-appearance bg-grey-lighter w-full leading-normal py-2 px-3 rounded border-b border-red-light mt-2 focus:outline-none"
                                                     :class="{
@@ -411,12 +425,13 @@ export default {
                 confirmButtonText: "Yes, delete it!"
             }).then(result => {
                 if (result.value) {
+                    this.$Progress.start();
                     this.form.delete("/api/user/" + id).then(({ data }) => {
-                        Swal.fire(
-                            "Deleted!",
-                            "User deleted successfully.",
-                            "success"
-                        );
+                        Toast.fire({
+                            icon: "success",
+                            title: "User deleted successfully"
+                        });
+                        this.$Progress.finish();
                         this.loadUser();
                     });
                 }
