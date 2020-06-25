@@ -27,8 +27,21 @@ export default new VueRouter({
             component: require("./components/Admin.vue").default,
             children: [
                 {
+                    path: "",
+                    component: require("./components/Dashboard.vue").default
+                },
+                {
                     path: "users",
                     component: require("./components/ManageUsers.vue").default
+                },
+                {
+                    path: "products",
+                    component: require("./components/ManageProducts.vue")
+                        .default
+                },
+                {
+                    path: "orders",
+                    component: require("./components/ManageOrders.vue").default
                 }
             ]
         }

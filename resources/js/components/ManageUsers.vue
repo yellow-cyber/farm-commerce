@@ -153,49 +153,83 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
 
-                    <!-- Modal -->
-                    <div
-                        class="modal fade text-left"
-                        id="addNew"
-                        tabindex="-1"
-                        role="dialog"
-                        aria-labelledby="addNewLabel"
-                        aria-hidden="true"
-                    >
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content rounded-0 border-0">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addNewLabel">
-                                        {{
-                                            editMode
-                                                ? "Edit User"
-                                                : "Add New User"
-                                        }}
-                                    </h5>
-                                    <button
-                                        type="button"
-                                        class="close"
-                                        data-dismiss="modal"
-                                        aria-label="Close"
-                                    >
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form
-                                    @submit.prevent="
-                                        editMode ? updateUser() : createUser()
-                                    "
-                                >
-                                    <div class="modal-body">
-                                        <div class="container">
-                                            <div class="form-group">
-                                                <label>Name</label>
+                <!-- Modal -->
+                <div
+                    class="modal fade "
+                    id="addNew"
+                    data-backdrop="static"
+                    data-keyboard="false"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="addNewLabel"
+                    aria-hidden="true"
+                >
+                    <div class="modal-dialog-centered modal-dialog">
+                        <div class="modal-content border-0 shadow">
+                            <form
+                                @submit.prevent="
+                                    editMode ? updateUser() : createUser()
+                                "
+                                class="flex flex-col lg:flex-row justify-center lg:justify-between font-sans"
+                            >
+                                <div class="w-full mb-6 lg:mb-0 ">
+                                    <div class="bg-white shadow rounded-lg">
+                                        <div
+                                            class="border-b border-grey-lighter p-4"
+                                        >
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h3
+                                                        class=" text-grey-darkest"
+                                                    >
+                                                        {{
+                                                            editMode
+                                                                ? "Edit User"
+                                                                : "Add New User"
+                                                        }}
+                                                    </h3>
+                                                </div>
+                                                <div class="col-6">
+                                                    <svg
+                                                        class="ml-auto bi bi-x-circle hover:fill-red cursor-pointer"
+                                                        data-dismiss="modal"
+                                                        width="1em"
+                                                        height="1em"
+                                                        viewBox="0 0 16 16"
+                                                        fill="red"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                                                        />
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
+                                                        />
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
+                                                        />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-4">
+                                            <div class="mb-4">
+                                                <label
+                                                    for="name"
+                                                    class="uppercase text-sm tracking-wide font-semibold text-grey-darker px-2"
+                                                >
+                                                    Name
+                                                </label>
                                                 <input
                                                     v-model="form.name"
                                                     type="text"
                                                     name="name"
-                                                    class="form-control rounded-0"
+                                                    class="no-appearance bg-grey-lighter w-full leading-normal py-2 px-3 rounded border-b border-red-light mt-2 focus:outline-none"
                                                     :class="{
                                                         'is-invalid': form.errors.has(
                                                             'name'
@@ -207,13 +241,18 @@
                                                     field="name"
                                                 ></has-error>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Email</label>
+                                            <div class="mb-4">
+                                                <label
+                                                    for="email"
+                                                    class="uppercase text-sm tracking-wide font-semibold text-grey-darker px-2"
+                                                >
+                                                    Email
+                                                </label>
                                                 <input
                                                     v-model="form.email"
-                                                    type="email"
+                                                    type="text"
                                                     name="email"
-                                                    class="form-control rounded-0"
+                                                    class="no-appearance bg-grey-lighter w-full leading-normal py-2 px-3 rounded border-b border-red-light mt-2 focus:outline-none"
                                                     :class="{
                                                         'is-invalid': form.errors.has(
                                                             'email'
@@ -225,39 +264,56 @@
                                                     field="email"
                                                 ></has-error>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Role</label>
-                                                <select
-                                                    v-model="form.role"
-                                                    type="role"
-                                                    name="role"
-                                                    class="form-control rounded-0"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'role'
-                                                        )
-                                                    }"
+
+                                            <!-- Drop -->
+                                            <div class="mb-4">
+                                                <div
+                                                    class="flex justify-between items-center px-2"
                                                 >
-                                                    <option value="1"
-                                                        >Administrator</option
+                                                    <label
+                                                        for="role"
+                                                        class="uppercase text-sm tracking-wide font-semibold text-grey-darker"
                                                     >
-                                                    <option value="0"
-                                                        >Standard User</option
+                                                        Role
+                                                    </label>
+                                                </div>
+                                                <div class="relative mt-2">
+                                                    <select
+                                                        class="block appearance-none w-full bg-grey-lighter border-b border-grey-light text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none"
+                                                        id="role"
+                                                        :class="{
+                                                            'is-invalid': form.errors.has(
+                                                                'role'
+                                                            )
+                                                        }"
                                                     >
-                                                </select>
-                                                <has-error
-                                                    :form="form"
-                                                    field="role"
-                                                ></has-error>
+                                                        <option value="1"
+                                                            >Administrator</option
+                                                        >
+                                                        <option value="0"
+                                                            >Standard
+                                                            User</option
+                                                        >
+                                                    </select>
+                                                    <has-error
+                                                        :form="form"
+                                                        field="role"
+                                                    ></has-error>
+                                                </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Password</label>
+                                            <div class="mb-4">
+                                                <label
+                                                    for="password"
+                                                    class="uppercase text-sm tracking-wide font-semibold text-grey-darker px-2"
+                                                >
+                                                    Password
+                                                </label>
                                                 <input
                                                     v-model="form.password"
-                                                    type="password"
+                                                    type="text"
                                                     name="password"
-                                                    class="form-control rounded-0"
+                                                    class="no-appearance bg-grey-lighter w-full leading-normal py-2 px-3 rounded border-b border-red-light mt-2 focus:outline-none"
                                                     :class="{
                                                         'is-invalid': form.errors.has(
                                                             'password'
@@ -270,29 +326,25 @@
                                                 ></has-error>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button
-                                            type="button"
-                                            class="btn btn-outline-danger rounded-0"
-                                            data-dismiss="modal"
-                                        >
-                                            Close
-                                        </button>
                                         <button
                                             type="submit"
-                                            class="btn btn-outline-success rounded-0"
+                                            class="uppercase font-bold w-full btn-success text-lg text-white rounded-lg p-3 cursor-not-allowed opacity-50"
+                                            @click="
+                                                editMode
+                                                    ? updateUser
+                                                    : createUser
+                                            "
                                         >
                                             {{ editMode ? "Update" : "Save" }}
                                         </button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-
-                    <!-- End Modal -->
                 </div>
+
+                <!-- End Modal -->
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <router-view></router-view>
+        <h3 class="text-gray-700 text-3xl font-medium">Dashboard</h3>
+        <statistics />
     </div>
 </template>
 

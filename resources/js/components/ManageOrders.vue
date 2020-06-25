@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        Manage Items
+        Orders
     </div>
 </template>
 

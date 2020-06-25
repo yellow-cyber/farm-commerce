@@ -81,8 +81,9 @@ class UserController extends Controller
         Profile::findOrFail($user->id)->update([
             'role'=>$data['role']
         ]);
+        $user->update($data);
     
-        return $user->update($data);
+        return $data['role'];
 
 
       
