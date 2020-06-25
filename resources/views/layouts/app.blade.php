@@ -22,10 +22,9 @@
 </head>
 <body>
     <div id="app">
-        <x-navbar />
+       
         <vue-progress-bar></vue-progress-bar>
         <main>
-           <router-view></router-view>
            @yield('content')
         </main>
     </div>

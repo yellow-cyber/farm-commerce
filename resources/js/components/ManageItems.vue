@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        Admin
-        <router-view></router-view>
+        Manage Items
     </div>
 </template>
 

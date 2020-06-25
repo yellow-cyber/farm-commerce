@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-@auth
-    
-@endauth
+<div>
+    <x-navbar />
+Home View
+    <router-view></router-view>
 </div>
+
 @endsection

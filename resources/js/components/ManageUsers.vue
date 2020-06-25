@@ -32,7 +32,7 @@
                     <td>128</td>
                     <td>{{ user.profile.role | roleFilter }}</td>
                     <!-- <td v-if="user.profile.role">Administrator</td>
-                    <td v-else>Standard User</td> -->
+          <td v-else>Standard User</td>-->
                     <td>{{ user.created_at | prettyDate }}</td>
                     <td>
                         <button
@@ -92,7 +92,7 @@
                     >
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content rounded-0 border-0">
-                                <div class="modal-header ">
+                                <div class="modal-header">
                                     <h5 class="modal-title" id="addNewLabel">
                                         {{
                                             editMode
@@ -311,6 +311,7 @@ export default {
                     this.$Progress.finish();
                     $("#addNew").modal("hide");
                     this.loadUser();
+                    Fire.$emit("updatedUsersTable");
                     Toast.fire({
                         icon: "success",
                         title: "User Updated Successfully"

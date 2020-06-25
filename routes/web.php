@@ -17,5 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/{any}', 'HomeController@index')->where('any', '.*');
+Route::get('/', 'AppController@index')->name('home');
+Route::get('/admin', 'AppController@admin')->name('admin');
+Route::get('/admin/{any}', 'AppController@admin')->where('any', '.*');
+Route::get('/{any}', 'AppController@index')->where('any', '.*');

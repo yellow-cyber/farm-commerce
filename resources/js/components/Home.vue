@@ -1,9 +1,11 @@
 <template>
     <div class="container">
-        Home
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    mounted() {}
+};
 </script>
