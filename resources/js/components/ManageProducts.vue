@@ -581,10 +581,10 @@ export default {
                     this.$Progress.finish();
                     $("#addNew").modal("hide");
                     this.loadModels();
-                    Fire.$emit("updatedUsersTable");
+                    Fire.$emit("updatedProductsTable");
                     Toast.fire({
                         icon: "success",
-                        title: "User Updated Successfully"
+                        title: "Product Updated Successfully"
                     });
                 })
                 .catch(err => {

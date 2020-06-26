@@ -2668,10 +2668,10 @@ __webpack_require__.r(__webpack_exports__);
 
         _this4.loadModels();
 
-        Fire.$emit("updatedUsersTable");
+        Fire.$emit("updatedProductsTable");
         Toast.fire({
           icon: "success",
-          title: "User Updated Successfully"
+          title: "Product Updated Successfully"
         });
       })["catch"](function (err) {
         Toast.fire({
@@ -3384,7 +3384,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ["users", "products", "orders"],
   data: function data() {
     return {
-      totalUsers: this.name,
+      totalUsers: this.users,
       totalProducts: this.products,
       totalOrders: this.orders
     };
@@ -3395,13 +3395,20 @@ __webpack_require__.r(__webpack_exports__);
     axios.get("/api/user").then(function (res) {
       _this.totalUsers = res.data[0].length;
     });
-  },
-  created: function created() {
-    Fire.$on("updatedUsersTable", function () {
-      axios.get("/api/user").then(function (res) {
-        console.log(res.data);
-      });
+    axios.get("/api/products").then(function (res) {
+      _this.totalProducts = res.data.length;
     });
+  },
+  created: function created() {// Fire.$on("updatedUsersTable", () => {
+    //     axios.get("/api/user").then(res => {
+    //         console.log(res.data);
+    //     });
+    // });
+    // Fire.$on("updatedProductsTable", () => {
+    //     axios.get("/api/products").then(res => {
+    //         console.log(res.data);
+    //     });
+    // });
   }
 });
 
@@ -66601,7 +66608,23 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "mx-5" }, [
+              _c(
+                "h4",
+                { staticClass: "text-2xl font-semibold text-gray-700" },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(this.totalProducts) +
+                      "\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-gray-500" }, [
+                _vm._v("Available Products")
+              ])
+            ])
           ]
         )
       ])
@@ -66619,20 +66642,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "text-gray-500" }, [_vm._v("Total Orders")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mx-5" }, [
-      _c("h4", { staticClass: "text-2xl font-semibold text-gray-700" }, [
-        _vm._v("\n                        215,542\n                    ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "text-gray-500" }, [
-        _vm._v("Available Products")
-      ])
     ])
   }
 ]

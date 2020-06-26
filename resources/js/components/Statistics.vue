@@ -111,7 +111,7 @@
 
                     <div class="mx-5">
                         <h4 class="text-2xl font-semibold text-gray-700">
-                            215,542
+                            {{ this.totalProducts }}
                         </h4>
                         <div class="text-gray-500">Available Products</div>
                     </div>
@@ -126,7 +126,7 @@ export default {
     props: ["users", "products", "orders"],
     data: function() {
         return {
-            totalUsers: this.name,
+            totalUsers: this.users,
             totalProducts: this.products,
             totalOrders: this.orders
         };
@@ -135,13 +135,21 @@ export default {
         axios.get("/api/user").then(res => {
             this.totalUsers = res.data[0].length;
         });
+        axios.get("/api/products").then(res => {
+            this.totalProducts = res.data.length;
+        });
     },
     created() {
-        Fire.$on("updatedUsersTable", () => {
-            axios.get("/api/user").then(res => {
-                console.log(res.data);
-            });
-        });
+        // Fire.$on("updatedUsersTable", () => {
+        //     axios.get("/api/user").then(res => {
+        //         console.log(res.data);
+        //     });
+        // });
+        // Fire.$on("updatedProductsTable", () => {
+        //     axios.get("/api/products").then(res => {
+        //         console.log(res.data);
+        //     });
+        // });
     }
 };
 </script>

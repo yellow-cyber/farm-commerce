@@ -2,21 +2,6 @@
 
 @section('content')
 
-
-{{-- <div class="flex justify-between w-screen h-screen sm:relative flex-wrap">
-    
-    <div class="border-right w-full md:flex md:flex-row md:min-h-screen md:w-1/5 bg-white text-center text-gray-700">
-       <x-admin-side-bar></x-admin-side-bar>
-    
-    </div>
-    <div class="w-full md:w-4/5 p-4 text-center">
-       
-    </div>
-    
-
-  </div> --}}
-
-
   <div>
     <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200 font-roboto">
         <div x-bind:class="sidebarOpen ? 'block' : 'hidden'" x-on:click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
