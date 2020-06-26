@@ -9,6 +9,10 @@ export default new VueRouter({
             component: require("./components/Home.vue").default,
             children: [
                 {
+                    path: "",
+                    component: require("./components/Landing.vue").default
+                },
+                {
                     path: "shop",
                     component: require("./components/Shop.vue").default
                 },
