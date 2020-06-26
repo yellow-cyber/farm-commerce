@@ -82,10 +82,6 @@ class UserController extends Controller
             'role'=>$data['role']
         ]);
         $user->update($data);
-    
-        return $data['role'];
-
-
       
     }
 

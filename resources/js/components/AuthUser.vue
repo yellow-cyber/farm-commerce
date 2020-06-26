@@ -1,10 +1,5 @@
 <template>
-    <p
-        x-on:click="dropdownOpen = !dropdownOpen"
-        class="cursor-pointer text-gray-700 text-base font-medium"
-    >
-        {{ this.authName }}
-    </p>
+    <span>{{ this.authName }}</span>
 </template>
 
 <script>

@@ -41,9 +41,9 @@
 
                     <div class="mx-5">
                         <h4 class="text-2xl font-semibold text-gray-700">
-                            8,282
+                            {{ this.totalUsers }}
                         </h4>
-                        <div class="text-gray-500">New Users</div>
+                        <div class="text-gray-500">Total Users</div>
                     </div>
                 </div>
             </div>
@@ -122,5 +122,26 @@
 </template>
 
 <script>
-export default {};
+export default {
+    props: ["users", "products", "orders"],
+    data: function() {
+        return {
+            totalUsers: this.name,
+            totalProducts: this.products,
+            totalOrders: this.orders
+        };
+    },
+    mounted() {
+        axios.get("/api/user").then(res => {
+            this.totalUsers = res.data[0].length;
+        });
+    },
+    created() {
+        Fire.$on("updatedUsersTable", () => {
+            axios.get("/api/user").then(res => {
+                console.log(res.data);
+            });
+        });
+    }
+};
 </script>

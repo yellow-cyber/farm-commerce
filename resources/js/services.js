@@ -6,6 +6,10 @@ import moment from "moment";
 /** Progress Bar */
 import VueProgressBar from "vue-progressbar";
 
+/** File upload */
+import { objectToFormData } from "object-to-formdata";
+window.objectToFormData = objectToFormData;
+
 Vue.use(VueProgressBar, {
     color: "rgb(143, 255, 199)",
     failedColor: "red",
@@ -40,9 +44,17 @@ Vue.filter("roleFilter", function(value) {
     if (value) return "Administrator";
     else return "Standard User";
 });
+Vue.filter("typeFilter", function(value) {
+    if (value) return "Livestock";
+    else return "Plant";
+});
 Vue.filter("prettyDate", function(value) {
     return moment(value).format("LLL");
 });
 Vue.filter("dec2", function(value) {
     return value.toFixed(2);
+});
+Vue.filter("prettyDescription", function(value) {
+    if (value.length > 15) return value.substring(0, 15) + "...";
+    else return value;
 });

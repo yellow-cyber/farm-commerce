@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "moment": "^2.27.0",
+        "object-to-formdata": "^3.0.9",
         "sweetalert2": "^9.15.2",
         "tailwindcss": "^1.4.6",
         "vform": "^1.0.1",

@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <div class="flex flex-col mt-8">
+    <div class="container">
+        <h3 class="text-gray-700 text-3xl font-medium">Users Table</h3>
+        <div class="flex flex-col mt-4">
             <div class="row pb-3">
                 <div class="h5 font-weight-bold col-6 pt-3">Manage Users</div>
                 <div class="col-6 text-right">
@@ -170,14 +171,15 @@
                 <div
                     class="modal fade "
                     id="addNew"
-                    data-backdrop="static"
-                    data-keyboard="false"
                     tabindex="-1"
                     role="dialog"
-                    aria-labelledby="addNewLabel"
+                    aria-labelledby="addNewLabel    "
                     aria-hidden="true"
                 >
-                    <div class="modal-dialog-centered modal-dialog">
+                    <div
+                        class="modal-dialog-centered modal-dialog"
+                        role="document"
+                    >
                         <div class="modal-content border-0 shadow">
                             <form
                                 @submit.prevent="

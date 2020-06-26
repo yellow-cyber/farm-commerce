@@ -1,18 +1,52 @@
-<div class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-white md:w-full dark-mode:text-gray-200 dark-mode:bg-gray-800" x-data="{ open: false }">
-    <div class="flex flex-row items-center justify-between flex-shrink-0 px-8 py-4">
-        <a href="#" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Farmmerce</a>
-        <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" x-on:click="open = !open">
-            <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-                <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-            </svg>
-        </button>
+<div x-bind:class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-green-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
+    <div class="flex items-center justify-center mt-8">
+        <div class="flex items-center">
+            <img class="w-11/12 ml-auto mr-auto h-100" src="{{asset('img/farmerce-logo.png')}}" alt="" srcset="">
+            {{-- <svg class="h-12 w-12" fill="yellow" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 512 512" width="512" height="512"><path d="M38.566,226.524c-1.773,6.146-3.234,16.026,1.371,25.452,4.4,9,13.011,15.28,25.613,18.712,13.409,45.769,32.841,83.082,57.8,110.956,33,36.867,75.05,56.417,125.051,58.207L261.205,474l-30.774,6.155a8,8,0,1,0,3.138,15.69l74.008-14.8,5.268,10.535a8,8,0,1,0,14.31-7.156l-8-16a8.005,8.005,0,0,0-8.724-4.267L277.1,470.821l-11.766-31.37a203.1,203.1,0,0,0,88.275-30.945c28.49-18.291,51.477-43.434,68.324-74.728,19.97-37.1,31.256-82.935,33.591-136.333.925-.218,1.848-.466,2.766-.775a22.32,22.32,0,0,0,14.606-14.8c2.33-7.493,1.006-16.66-3.219-22.293L464,152h24a8,8,0,0,0,7.845-9.569c-4.934-24.67-20.528-33.819-32.74-37.149a53.818,53.818,0,0,0-7.578-1.476c-.278-1.584-.633-3.224-1.091-4.9a33.547,33.547,0,0,0,15.881-19.5,23.594,23.594,0,0,0-3.339-21.438A24.131,24.131,0,0,0,447.48,48h-.851A24.042,24.042,0,0,0,424,32h-1.371A24.042,24.042,0,0,0,400,16H384a8,8,0,0,0-8,8V69.483c-25.135,12.759-35.251,45.118-42.463,68.2-2.511,8.035-5.852,18.73-8.426,22.316H89.45L26.809,136.51a8,8,0,0,0-10.728,6.358C15.743,145.232,8.531,198.574,38.566,226.524ZM457.62,177.116a6.377,6.377,0,0,1-4.432,4.39,14.355,14.355,0,0,1-10.456-.61,7.87,7.87,0,0,1-4.6-5.232,7.984,7.984,0,0,1,1.32-6.939L448,157.333l8.879,11.839C457.671,170.228,458.624,173.887,457.62,177.116Zm1.737-56.268A26.768,26.768,0,0,1,477.133,136H448V119.351A41.581,41.581,0,0,1,459.357,120.848ZM392,32h8a8.009,8.009,0,0,1,8,8,8,8,0,0,0,8,8h8a8.009,8.009,0,0,1,8,8,8,8,0,0,0,8,8h7.48a7.98,7.98,0,0,1,6.532,3.345,7.757,7.757,0,0,1,1.113,7.044,17.86,17.86,0,0,1-7.5,9.919c-.715-1.011-1.471-2.012-2.3-2.992C435.562,69.826,420.312,64,400,64a58.749,58.749,0,0,0-8,.535ZM348.809,142.455C359.485,108.285,370.707,80,400,80c15.786,0,34.485,4.4,39.252,24.012-.467.075-.753.13-.821.143A8,8,0,0,0,432,112v32a7.964,7.964,0,0,0,2.022,5.3l-7.366,9.821a23.992,23.992,0,0,0,9.94,36.549q1.465.607,2.928,1.068c-2.219,50.732-12.765,94.11-31.424,128.982-15.44,28.853-36.464,52.035-62.486,68.9C301.02,423.525,256.433,424,256,424c-102.228,0-150.225-78.87-172.715-150.009l33.089,5.515c10.647,9.42,64.3,53.83,129.183,53.829q3.607,0,7.263-.187c39.442-2.044,74.845-20.854,105.225-55.908,28.155-32.483,37.534-59.679,27.875-80.833-5.964-13.061-18.743-22.855-37.982-29.108-2.452-.8-4.928-1.506-7.41-2.144C343.524,159.349,345.948,151.609,348.809,142.455ZM296,176c46.459,0,69.394,13.975,75.366,27.054,6.728,14.735-2.059,36.764-25.411,63.707-27.4,31.609-58.977,48.568-93.868,50.4-54.494,2.876-103.25-31.877-120.234-45.581,19.284-18.712,79.286-75.439,118.078-95.583ZM95.2,176H219.4c-37.9,26.087-81.869,67.728-98.41,83.812C111.523,245.872,92.615,212.986,95.2,176ZM31.191,155.241,79.356,173.3c-3.129,36.8,12.051,69.234,23.293,87.7l-29.211-4.868C63.422,254.1,57,250.369,54.35,245.027c-3.827-7.711.779-17.394.8-17.448A8,8,0,0,0,52.8,217.6C32.615,202.461,30.7,171.326,31.191,155.241Z"/><circle cx="408" cy="112" r="8"/></svg>
+
+            <span class="text-white text-2xl mx-2 font-semibold">Farmerce</span> 
+             --}}
+            
+        </div>
     </div>
-    <nav x-bind:class="{'block': open, 'hidden': !open}" class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-        <router-link class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" to="/admin/users">Users</router-link>
-        <router-link class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" to="/admin/products">Products</router-link>
-        <router-link class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" to="/admin/orders">Orders</router-link>
-      
+
+    <nav class="mt-6">
+
+        <router-link class="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 focus:bg-gray-600 focus:bg-opacity-25 focus:text-gray-100 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100" to="/admin">
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 10C2 5.58172 5.58172 2 10 2V10H18C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z" fill="currentColor"/>
+            <path d="M12 2.25195C14.8113 2.97552 17.0245 5.18877 17.748 8.00004H12V2.25195Z" fill="currentColor"/>
+        </svg>
+
+            <span class="mx-4">Dashboard</span>
+        </router-link>
+        
+
+        <router-link class="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100 focus:bg-gray-600 focus:bg-opacity-25 focus:text-gray-100 hover:bg-gray-600" to="/admin/users">
+          <svg class="bi bi-person h-5 w-5" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          </svg>
+
+            <span class="mx-4">Users</span>
+        </router-link>
+
+        <router-link class="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100 focus:bg-gray-600 focus:bg-opacity-25 focus:text-gray-100 hover:bg-gray-600" to="/admin/products">
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 3C6.44772 3 6 3.44772 6 4C6 4.55228 6.44772 5 7 5H13C13.5523 5 14 4.55228 14 4C14 3.44772 13.5523 3 13 3H7Z" fill="currentColor"/>
+                <path d="M4 7C4 6.44772 4.44772 6 5 6H15C15.5523 6 16 6.44772 16 7C16 7.55228 15.5523 8 15 8H5C4.44772 8 4 7.55228 4 7Z" fill="currentColor"/>
+                <path d="M2 11C2 9.89543 2.89543 9 4 9H16C17.1046 9 18 9.89543 18 11V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V11Z" fill="currentColor"/>
+            </svg>
+
+            <span class="mx-4">Products</span>
+        </router-link>
+
+        <router-link class="flex items-center mt-4 py-2 px-6 block border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100 focus:bg-gray-600 focus:bg-opacity-25 focus:text-gray-100 hover:bg-gray-600" to="/admin/orders">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+            </svg>
+           
+
+            <span class="mx-4">Orders</span>
+        </router-link>
     </nav>
 </div>
-
