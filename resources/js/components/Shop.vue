@@ -127,6 +127,7 @@
                 {{model.price}}
               </h1>
               <button
+                @click="addToCart(model.id)"
                 class="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:text-white hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:border-none focus:text-white"
               >Add to cart</button>
             </div>
@@ -170,15 +171,6 @@
 export default {
   data() {
     return {
-      form: new Form({
-        id: "",
-        name: "",
-        price: "",
-        qty: "",
-        desc: "",
-        img: null,
-        type: 0
-      }),
       modelName: "products",
       models: [],
       featured: {
@@ -187,9 +179,7 @@ export default {
         img: "product"
       },
       searchText: "",
-      editMode: false,
-      image: null,
-      noImage: true
+      authUser: null
     };
   },
   mounted() {
@@ -202,6 +192,11 @@ export default {
         this.featured = this.models[
           Math.floor(Math.random() * this.models.length)
         ];
+      });
+    },
+    addToCart(id) {
+      axios.put("/api/cart/" + id, {}).then(res => {
+        console.log(res);
       });
     }
   },

@@ -3472,18 +3472,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      form: new Form({
-        id: "",
-        name: "",
-        price: "",
-        qty: "",
-        desc: "",
-        img: null,
-        type: 0
-      }),
       modelName: "products",
       models: [],
       featured: {
@@ -3492,9 +3484,7 @@ __webpack_require__.r(__webpack_exports__);
         img: "product"
       },
       searchText: "",
-      editMode: false,
-      image: null,
-      noImage: true
+      authUser: null
     };
   },
   mounted: function mounted() {
@@ -3507,6 +3497,11 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/" + this.modelName).then(function (res) {
         _this.models = res.data;
         _this.featured = _this.models[Math.floor(Math.random() * _this.models.length)];
+      });
+    },
+    addToCart: function addToCart(id) {
+      axios.put("/api/cart/" + id, {}).then(function (res) {
+        console.log(res);
       });
     }
   },
@@ -67099,7 +67094,12 @@ var render = function() {
                           "button",
                           {
                             staticClass:
-                              "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:text-white hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:border-none focus:text-white"
+                              "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:text-white hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:border-none focus:text-white",
+                            on: {
+                              click: function($event) {
+                                return _vm.addToCart(model.id)
+                              }
+                            }
                           },
                           [_vm._v("Add to cart")]
                         )
@@ -82749,7 +82749,7 @@ try {
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
