@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Product;
 class Cart extends Model
 {
     protected $guarded = [];
@@ -13,6 +13,6 @@ class Cart extends Model
     }
     public function products()
     {
-        return $this->hasMany('App\Products');
+        return $this->belongsToMany(Product::class);
     }
 }

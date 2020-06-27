@@ -107,9 +107,9 @@
 
         <!-- card -->
         <div
-          v-for="model in filteredModels"
+          v-for="model in models"
           :key="model.id"
-          class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+          class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col cursor-pointer transition duration-500 ease-in-out transform"
         >
           <div class="max-w-xs bg-white-100 border shadow-sm rounded-lg overflow-hidden my-10">
             <div class="px-4 py-2">
@@ -128,8 +128,8 @@
               </h1>
               <button
                 @click="addToCart(model.id)"
-                class="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:text-white hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:border-none focus:text-white"
-              >Add to cart</button>
+                :class="model.selected?buttonAdded:buttonNotAdded"
+              >{{model.selected?"Added to cart":"Add to cart"}}</button>
             </div>
           </div>
         </div>
@@ -178,26 +178,41 @@ export default {
         desc: "",
         img: "product"
       },
+      productsWithSelected: [],
       searchText: "",
-      authUser: null
+      addedToCart: false,
+      buttonAdded:
+        "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110  focus:outline-none ",
+      buttonNotAdded:
+        "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 focus:outline-none"
     };
   },
   mounted() {
-    this.loadModels();
+    this.loadUserCart();
   },
   methods: {
-    loadModels() {
-      axios.get("/api/" + this.modelName).then(res => {
-        this.models = res.data;
-        this.featured = this.models[
-          Math.floor(Math.random() * this.models.length)
-        ];
-      });
+    async addToCart(id) {
+      const res = await axios.put("/api/cart/" + id);
+      this.loadUserCart();
     },
-    addToCart(id) {
-      axios.put("/api/cart/" + id, {}).then(res => {
-        console.log(res);
+    async loadUserCart() {
+      const res = await axios.get("api/cart");
+      let cart_products = res.data;
+
+      const res2 = await axios.get("api/products");
+      let products = res2.data;
+
+      products.forEach(product => {
+        product["selected"] = false;
+        cart_products.forEach(cart_product => {
+          if (product.id == cart_product.id) product["selected"] = true;
+        });
       });
+
+      this.models = products;
+      this.featured = this.models[
+        Math.floor(Math.random() * this.models.length)
+      ];
     }
   },
   computed: {

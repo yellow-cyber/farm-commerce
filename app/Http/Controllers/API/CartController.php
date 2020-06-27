@@ -14,8 +14,10 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-       return "nice";
+    { 
+        return auth('api')->user()->profile->cart->products;
+
+
     }
 
     /**
@@ -37,9 +39,8 @@ class CartController extends Controller
      */
     public function show($id)
     {
-        //
+      
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -57,10 +58,11 @@ class CartController extends Controller
          * 
          * 
          */
-      return auth()->user()->id;
-        Product::findOrFail($id);
+       $cart = auth('api')->user()->profile->cart;
+       $product = Product::findOrFail($id);
+       $cart->products()->toggle($product);
+       return $cart->products;
 
-        
     }
 
     /**
