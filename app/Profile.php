@@ -29,4 +29,8 @@ class Profile extends Model
     {
         return $this->hasOne('App\Cart');
     }
+    public function products()
+    {
+        return $this->belongsToMany('App\Product');
+    }
 }

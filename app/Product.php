@@ -12,4 +12,7 @@ class Product extends Model
     {
         return $this->belongsToMany(Cart::class);
     }
+    public function profiles(){
+        return $this->belongsToMany('App\Profile');
+    }
 }

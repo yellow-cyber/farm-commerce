@@ -2,7 +2,7 @@
   <div class="container">
     <div class="flex flex-col mt-4">
       <div class="row pb-3">
-        <div class="h5 font-weight-bold col-6 pt-3">My Cart</div>
+        <div class="h5 font-weight-bold col-6 pt-3">My Orders</div>
       </div>
 
       <div class="-my-2 border-bottom pb-3 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -54,13 +54,7 @@
                 <td
                   class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
                 >
-                  <input
-                    @change="changeQty($event,index,model)"
-                    type="number"
-                    min="1"
-                    class="form-control w-20"
-                    :value="model.pivot.qty"
-                  />
+                  <input disabled type="number" min="1" class="form-control w-20" value="1" />
                 </td>
 
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -73,14 +67,14 @@
                   class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
                 >
                   <span>&#8369;</span>
-                  {{model.pivot.total_price}}
+                  {{totalPrice[index]}}
                 </td>
 
                 <td
                   class="px-6 py-4 whitespace-no-wrap border-b text-center border-gray-200 text-sm leading-5 font-medium"
                 >
                   <svg
-                    @click="removeToCart(model.id,index)"
+                    @click="claim(model.id,index)"
                     class="bi fill-red text-center bi-trash cursor-pointer transition duration-500 ease-in-out hover:fill-red transform hover:scale-150"
                     width="2em"
                     height="1.3em"
@@ -110,11 +104,10 @@
           <div class="col-12 font-weight-bold h5">
             Total Price:
             <span>&#8369;</span>
-            {{overallPrice}}
           </div>
           <div class="col-12 pt-2">
             <button
-              @click="checkout"
+              @click="claimAll"
               class="bg-white shadow satext-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:text-green-500 focus:outline-none shadow-md py-2 px-6 inline-flex items-center"
             >
               <span class="mr-2">PROCEED TO CHECKOUT</span>
@@ -147,123 +140,19 @@ export default {
   },
   data() {
     return {
-      models: [],
-      totalPrice: [],
-      cartQty: [],
-      overallPrice: 0
+      models: []
     };
   },
   mounted() {
-    this.loadModels(1);
-
-    this.$set(this, "models", [
-      {
-        property: "setLater OBJ1 Prop"
-      },
-      {
-        property: "setLater OBJ2 Prop"
-      }
-    ]);
+    this.loadModels();
   },
   methods: {
-    async loadModels(qty) {
-      const res = await axios.get("/api/cart");
-      this.models = res.data;
-      this.models.forEach((model, i) => {
-        this.$set(this.cartQty, i, qty);
-        this.$set(this.totalPrice, i, qty * model.price);
-        this.overallPrice += qty * model.price;
-      });
-      console.log(this.models);
+    async loadModels() {
+      const res = await axios.get("/api/orders");
+      console.log(res);
     },
-    computeOverallPrice() {
-      this.overallPrice = 0;
-      this.totalPrice.forEach((price, i) => {
-        this.overallPrice += price;
-      });
-    },
-    changeQty(e, index, model) {
-      this.$set(this.cartQty, index, e.target.value);
-      this.$set(this.totalPrice, index, e.target.value * model.price);
-      this.computeOverallPrice();
-    },
-    removeToCart(id, index) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, remove it!"
-      }).then(result => {
-        if (result.value) {
-          this.$Progress.start();
-          axios.put("/api/cart/" + id).then(({ data }) => {
-            Toast.fire({
-              icon: "success",
-              title: "Product removed from cart"
-            });
-            this.totalPrice.splice(index, 1);
-            this.cartQty.splice(index, 1);
-            this.models.splice(index, 1);
-            this.computeOverallPrice();
-            this.$Progress.finish();
-          });
-        }
-      });
-    },
-    async checkout() {
-      const ans = await Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, proceed to checkout!"
-      });
-      Swal.mixin({
-        input: "text",
-        confirmButtonText: "Next &rarr;",
-        showCancelButton: true,
-        progressSteps: ["1", "2", "3"]
-      })
-        .queue([
-          {
-            title: "Where will we ship the item?",
-            text: "Enter your billing address"
-          },
-          {
-            title: "Phone",
-            text: "Please enter your phone number for verification"
-          }
-        ])
-        .then(async result => {
-          if (result.value) {
-            const storeOrders = await axios.post("/api/orders", {
-              totalPrices: this.totalPrice,
-              cartQtys: this.cartQty,
-              models: this.models
-            });
-            console.log(storeOrders);
-
-            const checkRes = await axios.post("/api/cart/checkout");
-
-            this.totalPrice = [];
-            this.cartQty = [];
-            this.computeOverallPrice();
-            this.loadModels();
-
-            const answers = JSON.stringify(result.value[0]);
-            Swal.fire({
-              title: "Thank you for choosing farmerce!",
-              html: `Your item is on its way!`,
-              confirmButtonText: "Lovely!"
-            });
-          }
-        });
-    }
+    claim(id, index) {},
+    claimAll() {}
   }
 };
 </script>

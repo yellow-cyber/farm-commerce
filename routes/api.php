@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResources([
     'user' => 'API\UserController',
     'products'=>'API\ProductController',
-    'cart'=>'API\CartController'
+    'cart'=>'API\CartController',
+    'orders'=>'API\OrdersController'
 ]);
 Route::post('cart/checkout',"API\CartController@checkout");

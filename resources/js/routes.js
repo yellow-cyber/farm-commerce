@@ -27,6 +27,10 @@ export default new VueRouter({
                 {
                     path: "cart",
                     component: require("./components/Cart.vue").default
+                },
+                {
+                    path: "orders",
+                    component: require("./components/Orders.vue").default
                 }
             ]
         },
