@@ -14,9 +14,11 @@ class Profile extends Model
 
         static::created(function($profile){
             $profile->cart()->create();
+            $profile->order()->create();
         });
         static::deleted(function($profile){
             $profile->cart()->delete();
+            $profile->order()->delete();
         });
     }
 
@@ -28,6 +30,10 @@ class Profile extends Model
     public function cart()
     {
         return $this->hasOne('App\Cart');
+    }
+    public function order() /** Has One Order Table where order table consists of products (like cart) */
+    {
+        return $this->hasOne('App\Order');
     }
     public function products()
     {

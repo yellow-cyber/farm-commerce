@@ -136,16 +136,12 @@
         <!-- end card -->
       </div>
     </section>
-    <v-footer></v-footer>
   </div>
 </template>
 
 <script>
-import Footer from "./Footer.vue";
 export default {
-  components: {
-    "v-footer": Footer
-  },
+  components: {},
   data() {
     return {
       modelName: "products",

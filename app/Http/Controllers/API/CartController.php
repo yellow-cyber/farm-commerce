@@ -73,10 +73,45 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function checkout(){
+    public function checkout(Request $request)
+    {   
+        $request->validate([
+            'models'=>'required',
+            'address'=>'required|string',
+            'phone'=>'required|numeric'
+        ]);
+
+        $address = $request->address;
+        $phone = $request->phone;
+       
         $cart = auth('api')->user()->profile->cart;
+        $order = auth('api')->user()->profile->order;
+        
+        foreach($request->models as $model){
+            $product = Product::find($model['id']);
+            $exists = $order->products->contains($product->id);
+            
+            $existingProduct =  $order->products->find($product->id);
+            $totalPrice = $model['pivot']['total_price'];
+            $qty = $model['pivot']['qty'];
+            if($exists)
+            {
+                $existingProduct = $order->products->find($product->id);
+                $totalPrice += $existingProduct->pivot->total_price;
+                $qty += $existingProduct->pivot->qty;
+                $order->products()->detach([$product->id]);
+            }
+            $order->products()->attach($product->id,
+            [
+                    'qty'=>  $qty,
+                    'total_price'=> $totalPrice,
+                    'phone_number'=>$phone,
+                    'shipping_address'=>$address
+            ]);
+        }
         $cart->products()->detach();
-        return $cart;
+        return $order->products;
+    
     }
     /**
      * Remove the specified resource from storage.

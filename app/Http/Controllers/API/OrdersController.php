@@ -4,9 +4,15 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Auth;
+use App\Product;
+use App\Order;
 class OrdersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,31 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return auth('api')->user()->profile->orders;
+        $allOrders = [];
+        $ordersCart = Order::all();
+        foreach($ordersCart as $orderCart)
+        {
+            foreach($orderCart->products as $product)
+            {
+                array_push($allOrders,$product) ;
+            }
+           
+        }
+        return $allOrders;
+
+       
+      
+        
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function authIndex()
+    {
+        $products = auth('api')->user()->profile->order->products;
+        return $products;
     }
 
     /**
@@ -59,6 +89,37 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        $order = auth('api')->user()->profile->order;
+        $order->products()->detach($product);   
+    }
+    public function confirm(Request $request,$id)
+    {
+        $confirmedProduct = Product::find($request->model['id']);
+
+        $orderCarts = Order::all();
+        foreach($orderCarts as $orderCart)
+        {
+            foreach($orderCart->products as $product)
+            {
+                if($product->pivot->order_id == $request->model['pivot']['order_id'])
+                {
+                    return $orderCart->products()->detach($confirmedProduct);
+                }
+            }
+        }
+
+
+       
+
+
+    }
+
+    public function claimAll()
+    {
+        $order = auth('api')->user()->profile->order;
+        $order->products()->detach();
+        return $order->products;  
     }
 }

@@ -5,7 +5,10 @@
         <div class="h5 font-weight-bold col-6 pt-3">My Cart</div>
       </div>
 
-      <div class="-my-2 border-bottom pb-3 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div
+        v-if="this.models[0]"
+        class="-my-2 border-bottom pb-3 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+      >
         <div
           class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
         >
@@ -32,7 +35,7 @@
             </thead>
 
             <tbody class="bg-white">
-              <tr v-for="(model,index) in models" :key="model.id">
+              <tr v-for="(model,index) in models" :key="model.pivot.id">
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 h-10 w-16">
@@ -102,8 +105,7 @@
           </table>
         </div>
       </div>
-
-      <div class="row py-5">
+      <div v-if="this.models[0]" class="row py-5">
         <div class="col-6"></div>
 
         <div class="col-6 text-right">
@@ -135,6 +137,14 @@
           </div>
         </div>
       </div>
+
+      <div
+        v-if="!this.models[0]"
+        class="-my-2 mb-64 border-bottom pb-3 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+      >No Items in cart</div>
+      <div v-if="!this.models[0]" class="-my-2 mb-64 pb-3 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"></div>
+      <div v-if="!this.models[0]" class="-my-2 mb-64 pb-3 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"></div>
+      <div v-else class="-my-2 mb-64 pb-3 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"></div>
     </div>
   </div>
 </template>
@@ -148,7 +158,9 @@ export default {
   data() {
     return {
       models: [],
-      overallPrice: 0
+      overallPrice: 0,
+      address: null,
+      phone: null
     };
   },
   mounted() {
@@ -158,6 +170,7 @@ export default {
     async loadModels() {
       const res = await axios.get("/api/cart");
       this.models = res.data;
+      console.log(this.models[0]);
       this.computeOverallPrice();
     },
     computeOverallPrice() {
@@ -223,17 +236,31 @@ export default {
           ])
           .then(async result => {
             if (result.value) {
-              const storeOrders = await axios.post("/api/orders", {
-                models: this.models
-              });
-              const checkRes = await axios.post("/api/cart/checkout");
-              if (checkRes) {
-                this.computeOverallPrice();
-                this.loadModels();
-                Swal.fire({
-                  title: "Thank you for choosing farmerce!",
-                  html: `Your item is on its way!`,
-                  confirmButtonText: "Lovely!"
+              this.address = result.value[0];
+              this.phone = result.value[1];
+              try {
+                const checkRes = await axios.post("/api/cart/checkout", {
+                  models: this.models,
+                  address: this.address,
+                  phone: this.phone
+                });
+                if (checkRes) {
+                  this.computeOverallPrice();
+                  this.loadModels();
+                  Swal.fire({
+                    title: "Thank you for choosing farmerce!",
+                    html: `Your item is on its way!`,
+                    confirmButtonText: "Lovely!"
+                  });
+                  Toast.fire({
+                    icon: "success",
+                    title: "Successfully checked out"
+                  });
+                }
+              } catch (e) {
+                Toast.fire({
+                  icon: "error",
+                  title: "Invalid Form Submission!"
                 });
               }
             }

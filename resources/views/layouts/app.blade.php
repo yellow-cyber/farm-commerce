@@ -22,13 +22,17 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
-<body class="">
+<body class="overflow-x-hidden">
     <div id="app">
        
         <vue-progress-bar></vue-progress-bar>
         <main>
            @yield('content')
         </main>
+        <footer class="w-full text-center  p-4 pin-b bg-black">
+            <p class="font-bold font-sans text-white">&copy; 2020 Farmerce. All Rights Reserved </p>
+        </footer>
     </div>
+   
 </body>
 </html>
