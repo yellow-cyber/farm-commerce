@@ -23,3 +23,4 @@ Route::apiResources([
     'products'=>'API\ProductController',
     'cart'=>'API\CartController'
 ]);
+Route::post('cart/checkout',"API\CartController@checkout");

@@ -13,7 +13,6 @@ import AuthUser from "./components/AuthUser.vue";
 
 /** EVENT BUS */
 window.Fire = new Vue();
-
 const app = new Vue({
     el: "#app",
     router,

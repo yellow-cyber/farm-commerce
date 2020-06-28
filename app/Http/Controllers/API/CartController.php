@@ -8,6 +8,11 @@ use App\Product;
 use Auth;
 class CartController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +21,6 @@ class CartController extends Controller
     public function index()
     { 
         return auth('api')->user()->profile->cart->products;
-
-
     }
 
     /**
@@ -28,7 +31,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        return "sod";
+    
     }
 
     /**
@@ -50,21 +53,23 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /**
-         * A profile hasOne Cart
-         * A cart belongsTo one Profile
-         * A cart hasMany Products
-         * A product belongsToMany cart
-         * 
-         * 
-         */
+     
        $cart = auth('api')->user()->profile->cart;
        $product = Product::findOrFail($id);
        $cart->products()->toggle($product);
        return $cart->products;
 
     }
-
+    /**
+     * Checkouts resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkout(){
+        $cart = auth('api')->user()->profile->cart;
+        $cart->products()->detach();
+        return $cart;
+    }
     /**
      * Remove the specified resource from storage.
      *

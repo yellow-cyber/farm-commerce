@@ -23,6 +23,10 @@ export default new VueRouter({
                 {
                     path: "about",
                     component: require("./components/About.vue").default
+                },
+                {
+                    path: "cart",
+                    component: require("./components/Cart.vue").default
                 }
             ]
         },
