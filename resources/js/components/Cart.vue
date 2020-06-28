@@ -59,21 +59,21 @@
                     type="number"
                     min="1"
                     class="form-control w-20"
-                    :value="model.pivot.qty"
+                    v-model="model.pivot.qty"
                   />
                 </td>
 
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                   <div class="text-sm leading-5 text-gray-900">
                     <span>&#8369;</span>
-                    {{ model.price }}
+                    {{ model.price | dec2 }}
                   </div>
                 </td>
                 <td
                   class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
                 >
                   <span>&#8369;</span>
-                  {{model.pivot.total_price}}
+                  {{model.pivot.total_price | dec2}}
                 </td>
 
                 <td
@@ -110,7 +110,7 @@
           <div class="col-12 font-weight-bold h5">
             Total Price:
             <span>&#8369;</span>
-            {{overallPrice}}
+            {{overallPrice | dec2}}
           </div>
           <div class="col-12 pt-2">
             <button
@@ -148,43 +148,27 @@ export default {
   data() {
     return {
       models: [],
-      totalPrice: [],
-      cartQty: [],
       overallPrice: 0
     };
   },
   mounted() {
-    this.loadModels(1);
-
-    this.$set(this, "models", [
-      {
-        property: "setLater OBJ1 Prop"
-      },
-      {
-        property: "setLater OBJ2 Prop"
-      }
-    ]);
+    this.loadModels();
   },
   methods: {
-    async loadModels(qty) {
+    async loadModels() {
       const res = await axios.get("/api/cart");
       this.models = res.data;
-      this.models.forEach((model, i) => {
-        this.$set(this.cartQty, i, qty);
-        this.$set(this.totalPrice, i, qty * model.price);
-        this.overallPrice += qty * model.price;
-      });
-      console.log(this.models);
+      this.computeOverallPrice();
     },
     computeOverallPrice() {
       this.overallPrice = 0;
-      this.totalPrice.forEach((price, i) => {
-        this.overallPrice += price;
+      this.models.forEach((model, i) => {
+        this.overallPrice += model.pivot.total_price;
       });
     },
     changeQty(e, index, model) {
-      this.$set(this.cartQty, index, e.target.value);
-      this.$set(this.totalPrice, index, e.target.value * model.price);
+      console.log(this.models[index].pivot.qty);
+      model.pivot.total_price = model.pivot.qty * model.price;
       this.computeOverallPrice();
     },
     removeToCart(id, index) {
@@ -204,9 +188,7 @@ export default {
               icon: "success",
               title: "Product removed from cart"
             });
-            this.totalPrice.splice(index, 1);
-            this.cartQty.splice(index, 1);
-            this.models.splice(index, 1);
+            this.loadModels();
             this.computeOverallPrice();
             this.$Progress.finish();
           });

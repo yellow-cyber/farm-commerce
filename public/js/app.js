@@ -2181,21 +2181,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       models: [],
-      totalPrice: [],
-      cartQty: [],
       overallPrice: 0
     };
   },
   mounted: function mounted() {
-    this.loadModels(1);
-    this.$set(this, "models", [{
-      property: "setLater OBJ1 Prop"
-    }, {
-      property: "setLater OBJ2 Prop"
-    }]);
+    this.loadModels();
   },
   methods: {
-    loadModels: function loadModels(qty) {
+    loadModels: function loadModels() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2211,17 +2204,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
                 _this.models = res.data;
 
-                _this.models.forEach(function (model, i) {
-                  _this.$set(_this.cartQty, i, qty);
+                _this.computeOverallPrice();
 
-                  _this.$set(_this.totalPrice, i, qty * model.price);
-
-                  _this.overallPrice += qty * model.price;
-                });
-
-                console.log(_this.models);
-
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -2233,13 +2218,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.overallPrice = 0;
-      this.totalPrice.forEach(function (price, i) {
-        _this2.overallPrice += price;
+      this.models.forEach(function (model, i) {
+        _this2.overallPrice += model.pivot.total_price;
       });
     },
     changeQty: function changeQty(e, index, model) {
-      this.$set(this.cartQty, index, e.target.value);
-      this.$set(this.totalPrice, index, e.target.value * model.price);
+      console.log(this.models[index].pivot.qty);
+      model.pivot.total_price = model.pivot.qty * model.price;
       this.computeOverallPrice();
     },
     removeToCart: function removeToCart(id, index) {
@@ -2264,11 +2249,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               title: "Product removed from cart"
             });
 
-            _this3.totalPrice.splice(index, 1);
-
-            _this3.cartQty.splice(index, 1);
-
-            _this3.models.splice(index, 1);
+            _this3.loadModels();
 
             _this3.computeOverallPrice();
 
@@ -4092,15 +4073,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _this.$Progress.start();
+
+                _context.next = 3;
                 return axios.put("/api/cart/" + id);
 
-              case 2:
+              case 3:
                 res = _context.sent;
 
                 _this.loadUserCart();
 
-              case 4:
+                Toast.fire({
+                  icon: "success",
+                  title: "Product added to cart"
+                });
+
+                _this.$Progress.finish();
+
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -66247,12 +66237,30 @@ var render = function() {
                         },
                         [
                           _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: model.pivot.qty,
+                                expression: "model.pivot.qty"
+                              }
+                            ],
                             staticClass: "form-control w-20",
                             attrs: { type: "number", min: "1" },
                             domProps: { value: model.pivot.qty },
                             on: {
                               change: function($event) {
                                 return _vm.changeQty($event, index, model)
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  model.pivot,
+                                  "qty",
+                                  $event.target.value
+                                )
                               }
                             }
                           })
@@ -66273,7 +66281,7 @@ var render = function() {
                               _c("span", [_vm._v("₱")]),
                               _vm._v(
                                 "\n                  " +
-                                  _vm._s(model.price) +
+                                  _vm._s(_vm._f("dec2")(model.price)) +
                                   "\n                "
                               )
                             ]
@@ -66291,7 +66299,7 @@ var render = function() {
                           _c("span", [_vm._v("₱")]),
                           _vm._v(
                             "\n                " +
-                              _vm._s(model.pivot.total_price) +
+                              _vm._s(_vm._f("dec2")(model.pivot.total_price)) +
                               "\n              "
                           )
                         ]
@@ -66358,7 +66366,11 @@ var render = function() {
           _c("div", { staticClass: "col-12 font-weight-bold h5" }, [
             _vm._v("\n          Total Price:\n          "),
             _c("span", [_vm._v("₱")]),
-            _vm._v("\n          " + _vm._s(_vm.overallPrice) + "\n        ")
+            _vm._v(
+              "\n          " +
+                _vm._s(_vm._f("dec2")(_vm.overallPrice)) +
+                "\n        "
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-12 pt-2" }, [

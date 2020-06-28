@@ -169,8 +169,14 @@ export default {
   },
   methods: {
     async addToCart(id) {
+      this.$Progress.start();
       const res = await axios.put("/api/cart/" + id);
       this.loadUserCart();
+      Toast.fire({
+        icon: "success",
+        title: "Product added to cart"
+      });
+      this.$Progress.finish();
     },
     async loadUserCart() {
       const res = await axios.get("api/cart");

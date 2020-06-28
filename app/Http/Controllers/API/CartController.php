@@ -20,7 +20,15 @@ class CartController extends Controller
      */
     public function index()
     { 
-        return auth('api')->user()->profile->cart->products;
+
+        $cart = auth('api')->user()->profile->cart;
+        $products = $cart->products;
+    
+        foreach($products as $product){
+            $cart->products()->updateExistingPivot($product->id,['total_price'=>$product->price]);
+        }
+        return $products;
+
     }
 
     /**
@@ -57,7 +65,7 @@ class CartController extends Controller
        $cart = auth('api')->user()->profile->cart;
        $product = Product::findOrFail($id);
        $cart->products()->toggle($product);
-       return $cart->products;
+    
 
     }
     /**

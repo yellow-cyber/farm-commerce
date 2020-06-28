@@ -10,9 +10,10 @@ class Product extends Model
 
     public function carts()
     {
-        return $this->belongsToMany(Cart::class);
+        return $this->belongsToMany(Cart::class)->withPivot('qty','total_price');
     }
     public function profiles(){
         return $this->belongsToMany('App\Profile');
     }
+  
 }
