@@ -167,7 +167,6 @@ export default {
       });
     },
     changeQty(e, index, model) {
-      console.log(this.models[index].pivot.qty);
       model.pivot.total_price = model.pivot.qty * model.price;
       this.computeOverallPrice();
     },
@@ -205,46 +204,41 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, proceed to checkout!"
       });
-      Swal.mixin({
-        input: "text",
-        confirmButtonText: "Next &rarr;",
-        showCancelButton: true,
-        progressSteps: ["1", "2", "3"]
-      })
-        .queue([
-          {
-            title: "Where will we ship the item?",
-            text: "Enter your billing address"
-          },
-          {
-            title: "Phone",
-            text: "Please enter your phone number for verification"
-          }
-        ])
-        .then(async result => {
-          if (result.value) {
-            const storeOrders = await axios.post("/api/orders", {
-              totalPrices: this.totalPrice,
-              cartQtys: this.cartQty,
-              models: this.models
-            });
-            console.log(storeOrders);
-
-            const checkRes = await axios.post("/api/cart/checkout");
-
-            this.totalPrice = [];
-            this.cartQty = [];
-            this.computeOverallPrice();
-            this.loadModels();
-
-            const answers = JSON.stringify(result.value[0]);
-            Swal.fire({
-              title: "Thank you for choosing farmerce!",
-              html: `Your item is on its way!`,
-              confirmButtonText: "Lovely!"
-            });
-          }
-        });
+      if (ans.isConfirmed) {
+        Swal.mixin({
+          input: "text",
+          confirmButtonText: "Next &rarr;",
+          showCancelButton: true,
+          progressSteps: ["1", "2"]
+        })
+          .queue([
+            {
+              title: "Where will we ship the item?",
+              text: "Enter your billing address"
+            },
+            {
+              title: "Phone",
+              text: "Please enter your phone number for verification"
+            }
+          ])
+          .then(async result => {
+            if (result.value) {
+              const storeOrders = await axios.post("/api/orders", {
+                models: this.models
+              });
+              const checkRes = await axios.post("/api/cart/checkout");
+              if (checkRes) {
+                this.computeOverallPrice();
+                this.loadModels();
+                Swal.fire({
+                  title: "Thank you for choosing farmerce!",
+                  html: `Your item is on its way!`,
+                  confirmButtonText: "Lovely!"
+                });
+              }
+            }
+          });
+      }
     }
   }
 };

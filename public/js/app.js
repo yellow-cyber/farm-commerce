@@ -2223,7 +2223,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     changeQty: function changeQty(e, index, model) {
-      console.log(this.models[index].pivot.qty);
       model.pivot.total_price = model.pivot.qty * model.price;
       this.computeOverallPrice();
     },
@@ -2280,70 +2279,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 ans = _context3.sent;
-                Swal.mixin({
-                  input: "text",
-                  confirmButtonText: "Next &rarr;",
-                  showCancelButton: true,
-                  progressSteps: ["1", "2", "3"]
-                }).queue([{
-                  title: "Where will we ship the item?",
-                  text: "Enter your billing address"
-                }, {
-                  title: "Phone",
-                  text: "Please enter your phone number for verification"
-                }]).then( /*#__PURE__*/function () {
-                  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(result) {
-                    var storeOrders, checkRes, answers;
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-                      while (1) {
-                        switch (_context2.prev = _context2.next) {
-                          case 0:
-                            if (!result.value) {
-                              _context2.next = 14;
-                              break;
-                            }
 
-                            _context2.next = 3;
-                            return axios.post("/api/orders", {
-                              totalPrices: _this4.totalPrice,
-                              cartQtys: _this4.cartQty,
-                              models: _this4.models
-                            });
+                if (ans.isConfirmed) {
+                  Swal.mixin({
+                    input: "text",
+                    confirmButtonText: "Next &rarr;",
+                    showCancelButton: true,
+                    progressSteps: ["1", "2"]
+                  }).queue([{
+                    title: "Where will we ship the item?",
+                    text: "Enter your billing address"
+                  }, {
+                    title: "Phone",
+                    text: "Please enter your phone number for verification"
+                  }]).then( /*#__PURE__*/function () {
+                    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(result) {
+                      var storeOrders, checkRes;
+                      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                        while (1) {
+                          switch (_context2.prev = _context2.next) {
+                            case 0:
+                              if (!result.value) {
+                                _context2.next = 8;
+                                break;
+                              }
 
-                          case 3:
-                            storeOrders = _context2.sent;
-                            console.log(storeOrders);
-                            _context2.next = 7;
-                            return axios.post("/api/cart/checkout");
+                              _context2.next = 3;
+                              return axios.post("/api/orders", {
+                                models: _this4.models
+                              });
 
-                          case 7:
-                            checkRes = _context2.sent;
-                            _this4.totalPrice = [];
-                            _this4.cartQty = [];
+                            case 3:
+                              storeOrders = _context2.sent;
+                              _context2.next = 6;
+                              return axios.post("/api/cart/checkout");
 
-                            _this4.computeOverallPrice();
+                            case 6:
+                              checkRes = _context2.sent;
 
-                            _this4.loadModels();
+                              if (checkRes) {
+                                _this4.computeOverallPrice();
 
-                            answers = JSON.stringify(result.value[0]);
-                            Swal.fire({
-                              title: "Thank you for choosing farmerce!",
-                              html: "Your item is on its way!",
-                              confirmButtonText: "Lovely!"
-                            });
+                                _this4.loadModels();
 
-                          case 14:
-                          case "end":
-                            return _context2.stop();
+                                Swal.fire({
+                                  title: "Thank you for choosing farmerce!",
+                                  html: "Your item is on its way!",
+                                  confirmButtonText: "Lovely!"
+                                });
+                              }
+
+                            case 8:
+                            case "end":
+                              return _context2.stop();
+                          }
                         }
-                      }
-                    }, _callee2);
-                  }));
+                      }, _callee2);
+                    }));
 
-                  return function (_x) {
-                    return _ref2.apply(this, arguments);
-                  };
-                }());
+                    return function (_x) {
+                      return _ref2.apply(this, arguments);
+                    };
+                  }());
+                }
 
               case 4:
               case "end":
