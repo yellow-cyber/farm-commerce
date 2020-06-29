@@ -8,11 +8,22 @@ Whether an egg or a carabao, Farmerce offers farming supplies at the best prices
 
 1. Unzip the file
 2. Modify .env depending on your database configuration
-3. run php artisan migrate
+3. run php artisan migrate:fresh --seed
 4. php artisan serve
 5. You can also view the app at http://farm-commerce.herokuapp.com. Note that it might take up several minutes for the app to load since it is hosted on a free server.
 
 ## Administrator
+
+Development
+
+1. Create an account
+2. Run php artisan tinker
+3. \$u = App\User::find(1)
+4. \$u->profile->role = 1
+5. \$u->profile->save()
+6. exit
+
+Production
 
 1. Go to /admin
 2. Login with
