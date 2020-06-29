@@ -69418,7 +69418,7 @@ var render = function() {
                             { staticClass: "text-sm leading-5 text-gray-900" },
                             [
                               _vm._v(
-                                "\n                                    " +
+                                "\n                                    User - " +
                                   _vm._s(model.pivot.buyer_id) +
                                   "\n                                "
                               )
@@ -69462,7 +69462,7 @@ var render = function() {
                             { staticClass: "text-sm leading-5 text-gray-900" },
                             [
                               _vm._v(
-                                "\n                                    User - " +
+                                "\n                                    " +
                                   _vm._s(model.pivot.qty) +
                                   "\n                                "
                               )

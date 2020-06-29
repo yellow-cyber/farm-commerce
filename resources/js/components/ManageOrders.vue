@@ -95,7 +95,7 @@
                                     <div
                                         class="text-sm leading-5 text-gray-900"
                                     >
-                                        {{ model.pivot.buyer_id }}
+                                        User - {{ model.pivot.buyer_id }}
                                     </div>
                                 </td>
                                 <td
@@ -113,7 +113,7 @@
                                     <div
                                         class="text-sm leading-5 text-gray-900"
                                     >
-                                        User - {{ model.pivot.qty }}
+                                        {{ model.pivot.qty }}
                                     </div>
                                 </td>
 
