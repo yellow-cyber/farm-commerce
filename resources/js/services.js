@@ -20,8 +20,8 @@ Vue.use(VueProgressBar, {
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
-import Paginate from "vuejs-paginate";
-Vue.component("paginate", Paginate);
+/** Paginate */
+Vue.component("pagination", require("laravel-vue-pagination"));
 
 let Toast = Swal.mixin({
     toast: true,
