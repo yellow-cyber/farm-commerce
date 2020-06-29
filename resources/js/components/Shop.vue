@@ -188,9 +188,9 @@ export default {
             searchText: "",
             addedToCart: false,
             buttonAdded:
-                "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-500 hover:text-gray-900  focus:outline-none",
+                "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110  focus:outline-none",
             buttonNotAdded:
-                "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white focus:outline-none "
+                "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110  focus:outline-none "
         };
     },
     mounted() {
@@ -199,13 +199,17 @@ export default {
     methods: {
         async addToCart(id) {
             this.$Progress.start();
+
             const res = await axios.put("/api/cart/" + id);
-            this.loadUserCart();
-            Toast.fire({
-                icon: "success",
-                title: "Product added to cart"
-            });
-            this.$Progress.finish();
+            if (res) {
+                this.loadUserCart();
+
+                Toast.fire({
+                    icon: "success",
+                    title: "Cart successfully updated"
+                });
+                this.$Progress.finish();
+            }
         },
         async loadUserCart() {
             const res = await axios.get("api/cart");

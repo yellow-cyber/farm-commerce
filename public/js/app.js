@@ -2212,6 +2212,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2261,7 +2303,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.overallPrice = 0;
       this.models.forEach(function (model, i) {
-        _this2.overallPrice += model.pivot.total_price;
+        _this2.overallPrice += parseFloat(model.pivot.total_price);
       });
     },
     changeQty: function changeQty(e, index, model) {
@@ -2969,7 +3011,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.overallPrice = 0;
       this.models.forEach(function (model, i) {
-        _this3.overallPrice += model.pivot.total_price;
+        _this3.overallPrice += parseFloat(model.pivot.total_price);
       });
     },
     confirmAll: function confirmAll() {
@@ -4441,6 +4483,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4491,7 +4579,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.overallPrice = 0;
       this.models.forEach(function (model, i) {
-        _this2.overallPrice += model.pivot.total_price;
+        _this2.overallPrice += parseFloat(model.pivot.total_price);
       });
     },
     changeQty: function changeQty(e, index, model) {
@@ -5049,8 +5137,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       productsWithSelected: [],
       searchText: "",
       addedToCart: false,
-      buttonAdded: "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-500 hover:text-gray-900  focus:outline-none",
-      buttonNotAdded: "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white focus:outline-none "
+      buttonAdded: "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110  focus:outline-none",
+      buttonNotAdded: "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110  focus:outline-none "
     };
   },
   mounted: function mounted() {
@@ -5074,16 +5162,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 res = _context.sent;
 
-                _this.loadUserCart();
+                if (res) {
+                  _this.loadUserCart();
 
-                Toast.fire({
-                  icon: "success",
-                  title: "Product added to cart"
-                });
+                  Toast.fire({
+                    icon: "success",
+                    title: "Cart successfully updated"
+                  });
 
-                _this.$Progress.finish();
+                  _this.$Progress.finish();
+                }
 
-              case 7:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -68685,7 +68775,13 @@ var render = function() {
                                       staticClass:
                                         "text-sm leading-5 font-medium text-gray-900"
                                     },
-                                    [_vm._v(_vm._s(model.name))]
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(model.name) +
+                                          "\n                                        "
+                                      )
+                                    ]
                                   ),
                                   _vm._v(" "),
                                   _c(
@@ -68694,7 +68790,13 @@ var render = function() {
                                       staticClass:
                                         "text-sm leading-5 text-gray-500"
                                     },
-                                    [_vm._v("Item #" + _vm._s(model.id))]
+                                    [
+                                      _vm._v(
+                                        "\n                                            Item #" +
+                                          _vm._s(model.id) +
+                                          "\n                                        "
+                                      )
+                                    ]
                                   )
                                 ])
                               ])
@@ -68754,9 +68856,9 @@ var render = function() {
                                 [
                                   _c("span", [_vm._v("₱")]),
                                   _vm._v(
-                                    "\n                  " +
+                                    "\n                                    " +
                                       _vm._s(_vm._f("dec2")(model.price)) +
-                                      "\n                "
+                                      "\n                                "
                                   )
                                 ]
                               )
@@ -68772,11 +68874,11 @@ var render = function() {
                             [
                               _c("span", [_vm._v("₱")]),
                               _vm._v(
-                                "\n                " +
+                                "\n                                " +
                                   _vm._s(
                                     _vm._f("dec2")(model.pivot.total_price)
                                   ) +
-                                  "\n              "
+                                  "\n                            "
                               )
                             ]
                           ),
@@ -68842,12 +68944,14 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-6 text-right" }, [
               _c("div", { staticClass: "col-12 font-weight-bold h5" }, [
-                _vm._v("\n          Total Price:\n          "),
+                _vm._v(
+                  "\n                    Total Price:\n                    "
+                ),
                 _c("span", [_vm._v("₱")]),
                 _vm._v(
-                  "\n          " +
+                  "\n                    " +
                     _vm._s(_vm._f("dec2")(_vm.overallPrice)) +
-                    "\n        "
+                    "\n                "
                 )
               ]),
               _vm._v(" "),
@@ -68906,7 +69010,7 @@ var render = function() {
               staticClass:
                 "-my-2 mb-64 border-bottom pb-3 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
             },
-            [_vm._v("No Items in cart")]
+            [_vm._v("\n            No Items in cart\n        ")]
           )
         : _vm._e(),
       _vm._v(" "),
@@ -68952,7 +69056,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Product")]
+          [
+            _vm._v(
+              "\n                                Product\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -68961,7 +69069,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Quantity")]
+          [
+            _vm._v(
+              "\n                                Quantity\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -68970,7 +69082,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Unit Price")]
+          [
+            _vm._v(
+              "\n                                Unit Price\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -68979,7 +69095,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Total Price")]
+          [
+            _vm._v(
+              "\n                                Total Price\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -68988,7 +69108,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Remove")]
+          [
+            _vm._v(
+              "\n                                Remove\n                            "
+            )
+          ]
         )
       ])
     ])
@@ -71629,7 +71753,13 @@ var render = function() {
                                       staticClass:
                                         "text-sm leading-5 font-medium text-gray-900"
                                     },
-                                    [_vm._v(_vm._s(model.name))]
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(model.name) +
+                                          "\n                                        "
+                                      )
+                                    ]
                                   ),
                                   _vm._v(" "),
                                   _c(
@@ -71640,9 +71770,11 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        _vm._s(model.pivot.shipping_address) +
-                                          " - " +
-                                          _vm._s(model.pivot.phone_number)
+                                        "\n                                            " +
+                                          _vm._s(model.pivot.shipping_address) +
+                                          "\n                                            - " +
+                                          _vm._s(model.pivot.phone_number) +
+                                          "\n                                        "
                                       )
                                     ]
                                   )
@@ -71663,7 +71795,13 @@ var render = function() {
                                 {
                                   staticClass: "text-sm leading-5 text-gray-900"
                                 },
-                                [_vm._v(_vm._s(model.pivot.qty))]
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(model.pivot.qty) +
+                                      "\n                                "
+                                  )
+                                ]
                               )
                             ]
                           ),
@@ -71683,9 +71821,9 @@ var render = function() {
                                 [
                                   _c("span", [_vm._v("₱")]),
                                   _vm._v(
-                                    "\n                  " +
+                                    "\n                                    " +
                                       _vm._s(_vm._f("dec2")(model.price)) +
-                                      "\n                "
+                                      "\n                                "
                                   )
                                 ]
                               )
@@ -71701,11 +71839,11 @@ var render = function() {
                             [
                               _c("span", [_vm._v("₱")]),
                               _vm._v(
-                                "\n                " +
+                                "\n                                " +
                                   _vm._s(
                                     _vm._f("dec2")(model.pivot.total_price)
                                   ) +
-                                  "\n              "
+                                  "\n                            "
                               )
                             ]
                           ),
@@ -71782,12 +71920,14 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-6 text-right" }, [
               _c("div", { staticClass: "col-12 font-weight-bold h5" }, [
-                _vm._v("\n          Total Price:\n          "),
+                _vm._v(
+                  "\n                    Total Price:\n                    "
+                ),
                 _c("span", [_vm._v("₱")]),
                 _vm._v(
-                  "\n          " +
+                  "\n                    " +
                     _vm._s(_vm._f("dec2")(_vm.overallPrice)) +
-                    "\n        "
+                    "\n                "
                 )
               ]),
               _vm._v(" "),
@@ -71844,7 +71984,7 @@ var render = function() {
               staticClass:
                 "-my-2 border-bottom pb-3 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
             },
-            [_vm._v("No Items in order")]
+            [_vm._v("\n            No Items in order\n        ")]
           )
         : _vm._e(),
       _vm._v(" "),
@@ -71890,7 +72030,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Product")]
+          [
+            _vm._v(
+              "\n                                Product\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -71899,7 +72043,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Quantity")]
+          [
+            _vm._v(
+              "\n                                Quantity\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -71908,7 +72056,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Unit Price")]
+          [
+            _vm._v(
+              "\n                                Unit Price\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -71917,7 +72069,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Total Price")]
+          [
+            _vm._v(
+              "\n                                Total Price\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -71926,7 +72082,11 @@ var staticRenderFns = [
             staticClass:
               "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Claim")]
+          [
+            _vm._v(
+              "\n                                Claim\n                            "
+            )
+          ]
         )
       ])
     ])

@@ -234,7 +234,7 @@ export default {
         computeOverallPrice() {
             this.overallPrice = 0;
             this.models.forEach((model, i) => {
-                this.overallPrice += model.pivot.total_price;
+                this.overallPrice += parseFloat(model.pivot.total_price);
             });
         },
         confirmAll() {
