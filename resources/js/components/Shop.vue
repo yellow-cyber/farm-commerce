@@ -109,9 +109,9 @@
         <div
           v-for="model in filteredModels"
           :key="model.id"
-          class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col cursor-pointer transition duration-500 ease-in-out transform"
+          class="w-full md:w-1/3 xl:w-1/4 p-6 bg-white flex flex-col cursor-pointer transition duration-500 ease-in-out transform"
         >
-          <div class="max-w-xs bg-white-100 border shadow-sm rounded-lg overflow-hidden my-10">
+          <div class="max-w-xs bg-white-100 shadow rounded-lg overflow-hidden my-10">
             <div class="px-4 py-2">
               <h1 class="text-gray-900 font-bold text-3xl uppercase">{{model.name}}</h1>
               <p class="text-gray-600 text-sm mt-1">{{model.desc}}</p>
@@ -155,9 +155,9 @@ export default {
       searchText: "",
       addedToCart: false,
       buttonAdded:
-        "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110  focus:outline-none ",
+        "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-500 hover:text-gray-900  focus:outline-none",
       buttonNotAdded:
-        "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 focus:outline-none"
+        "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white focus:outline-none "
     };
   },
   mounted() {

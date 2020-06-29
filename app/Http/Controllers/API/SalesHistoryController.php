@@ -27,18 +27,22 @@ class SalesHistoryController extends Controller
      */
     public function store(Request $request)
     {
-    
-        return SalesHistory::create([
-            'buyer_id'=>$request['pivot']['buyer_id'],
-            'order_id'=>$request['id'],
-            'product_id'=>$request['pivot']['product_id'],
-            'price'=>$request['pivot']['total_price'],
-            'qty'=>$request['pivot']['qty'],
-            'phone_number'=>$request['pivot']['phone_number'],
-            'shipping_address'=>$request['pivot']['shipping_address']
-        ]);
 
+        foreach($request->all() as $req)
+        {
+            SalesHistory::create([
+                'buyer_id'=>$req['pivot']['buyer_id'],
+                'order_id'=>$req['id'],
+                'product_id'=>$req['pivot']['product_id'],
+                'price'=>$req['pivot']['total_price'],
+                'qty'=>$req['pivot']['qty'],
+                'phone_number'=>$req['pivot']['phone_number'],
+                'shipping_address'=>$req['pivot']['shipping_address']
+            ]);
 
+        }
+
+     
     }
 
     /**

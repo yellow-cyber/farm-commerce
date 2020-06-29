@@ -13,33 +13,33 @@
             <thead>
               <tr>
                 <th
-                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
-                >Product</th>
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                >Name</th>
                 <th
-                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
                 >Buyer</th>
                 <th
-                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
                 >Date</th>
                 <th
-                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
                 >Quantity</th>
 
                 <th
-                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
                 >Unit Price</th>
                 <th
-                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
                 >Total Price</th>
                 <th
-                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
                 >Claim</th>
               </tr>
             </thead>
 
             <tbody class="bg-white">
               <tr v-for="(model) in models" :key="model.pivot.id">
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <td class="pl-3 py-3 whitespace-no-wrap border-b border-gray-200">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 h-10 w-16">
                       <img
@@ -59,30 +59,30 @@
                     </div>
                   </div>
                 </td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <td class="px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200">
                   <div class="text-sm leading-5 text-gray-900">{{ model.pivot.qty}}</div>
                 </td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <td class="px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200">
                   <div class="text-sm leading-5 text-gray-900">{{ model.created_at |prettyDate}}</div>
                 </td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <td class="px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200">
                   <div class="text-sm leading-5 text-gray-900">{{ model.pivot.qty}}</div>
                 </td>
 
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <td class="px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200">
                   <div class="text-sm leading-5 text-gray-900">
                     <span>&#8369;</span>
                     {{ model.price | dec2 }}
                   </div>
                 </td>
                 <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
+                  class="px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
                 >
                   <span>&#8369;</span>
                   {{model.pivot.total_price | dec2}}
                 </td>
                 <td
-                  class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
+                  class="pr-3 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
                 >
                   <button
                     @click="confirm(model)"
@@ -121,7 +121,7 @@
           </div>
           <div class="col-12 pt-2">
             <button
-              @click="claimAll"
+              @click="confirmAll"
               class="bg-white shadow satext-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:text-green-500 focus:outline-none shadow-md py-2 px-6 inline-flex items-center"
             >
               <span class="mr-2">CONFIRM ALL</span>
@@ -177,7 +177,7 @@ export default {
         this.overallPrice += model.pivot.total_price;
       });
     },
-    claimAll() {
+    confirmAll() {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -186,18 +186,21 @@ export default {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, claim it all!"
-      }).then(result => {
+      }).then(async result => {
         if (result.value) {
           this.$Progress.start();
-          Fire.$emit("claimedOrders", this.models.length);
-          axios.post("/api/orders/claim-all").then(({ data }) => {
-            Toast.fire({
-              icon: "success",
-              title: "Successfully claimed everything"
+          const salesLog = await axios.post("/api/sales", this.models);
+          console.log(salesLog.data);
+          axios
+            .post("/api/orders/confirm-all", this.models)
+            .then(({ data }) => {
+              Toast.fire({
+                icon: "success",
+                title: "Successfully delivered everything"
+              });
+              this.loadModels();
+              this.$Progress.finish();
             });
-            this.loadModels();
-            this.$Progress.finish();
-          });
         }
       });
     },
@@ -214,7 +217,7 @@ export default {
       if (res.value) {
         this.$Progress.start();
 
-        const salesLog = await axios.post("/api/sales", model);
+        const salesLog = await axios.post("/api/sales", [model]);
         axios
           .post("/api/orders/confirm/" + model.id, {
             model

@@ -28,4 +28,5 @@ Route::apiResources([
 Route::post('cart/checkout',"API\CartController@checkout");
 Route::get('my-orders',"API\OrdersController@authIndex");
 Route::post('orders/claim-all',"API\OrdersController@claimAll");
+Route::post('orders/confirm-all',"API\OrdersController@confirmAll");
 Route::post('orders/confirm/{id}',"API\OrdersController@confirm");

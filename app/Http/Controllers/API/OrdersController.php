@@ -118,8 +118,31 @@ class OrdersController extends Controller
 
     public function claimAll()
     {
+
         $order = auth('api')->user()->profile->order;
         $order->products()->detach();
         return $order->products;  
+    }
+    public function confirmAll(Request $request)
+    {
+        $orderCarts = Order::all();
+        foreach($request->all() as $req)
+        {
+            $confirmedProduct = Product::find($req['id']);
+            foreach($orderCarts as $orderCart)
+            {
+                foreach($orderCart->products as $product)
+                {
+                    if($product->pivot->order_id == $req['pivot']['order_id'])
+                    {
+                        $orderCart->products()->detach($confirmedProduct);
+                        break 2;
+                    }
+                }
+            }
+
+        }
+       
+ 
     }
 }

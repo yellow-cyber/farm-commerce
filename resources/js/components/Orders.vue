@@ -76,7 +76,7 @@
                   class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
                 >
                   <button
-                    @click="claim(model.id)"
+                    @click="claim(model.id,model)"
                     class="bg-white shadow satext-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:text-green-500 focus:outline-none shadow-md py-2 px-6 inline-flex items-center"
                   >
                     <span class="mr-2">Claim</span>
@@ -188,9 +188,10 @@ export default {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, claim it all!"
-      }).then(result => {
+      }).then(async result => {
         if (result.value) {
           this.$Progress.start();
+          const salesLog = await axios.post("/api/sales", this.models);
           axios.post("/api/orders/claim-all").then(async ({ data }) => {
             const ans = await Swal.fire({
               title: "Thank you for choosing Farmerce",
@@ -211,7 +212,7 @@ export default {
         }
       });
     },
-    async claim(id) {
+    async claim(id, model) {
       const res = await Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -222,6 +223,7 @@ export default {
         confirmButtonText: "Yes, i received the item!"
       });
       if (res.value) {
+        const salesLog = await axios.post("/api/sales", [model]);
         const ans = await Swal.fire({
           title: "Thank you for choosing Farmerce",
           text: "We hope you liked the item",

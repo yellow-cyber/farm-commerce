@@ -2956,7 +2956,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.overallPrice += model.pivot.total_price;
       });
     },
-    claimAll: function claimAll() {
+    confirmAll: function confirmAll() {
       var _this3 = this;
 
       Swal.fire({
@@ -2967,35 +2967,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, claim it all!"
-      }).then(function (result) {
-        if (result.value) {
-          _this3.$Progress.start();
+      }).then( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(result) {
+          var salesLog;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  if (!result.value) {
+                    _context2.next = 7;
+                    break;
+                  }
 
-          Fire.$emit("claimedOrders", _this3.models.length);
-          axios.post("/api/orders/claim-all").then(function (_ref) {
-            var data = _ref.data;
-            Toast.fire({
-              icon: "success",
-              title: "Successfully claimed everything"
-            });
+                  _this3.$Progress.start();
 
-            _this3.loadModels();
+                  _context2.next = 4;
+                  return axios.post("/api/sales", _this3.models);
 
-            _this3.$Progress.finish();
-          });
-        }
-      });
+                case 4:
+                  salesLog = _context2.sent;
+                  console.log(salesLog.data);
+                  axios.post("/api/orders/confirm-all", _this3.models).then(function (_ref2) {
+                    var data = _ref2.data;
+                    Toast.fire({
+                      icon: "success",
+                      title: "Successfully delivered everything"
+                    });
+
+                    _this3.loadModels();
+
+                    _this3.$Progress.finish();
+                  });
+
+                case 7:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }());
     },
     confirm: function confirm(model) {
       var _this4 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var res, salesLog;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context2.next = 2;
+                _context3.next = 2;
                 return Swal.fire({
                   title: "Are you sure?",
                   text: "You won't be able to revert this!",
@@ -3007,24 +3033,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                res = _context2.sent;
+                res = _context3.sent;
 
                 if (!res.value) {
-                  _context2.next = 9;
+                  _context3.next = 9;
                   break;
                 }
 
                 _this4.$Progress.start();
 
-                _context2.next = 7;
-                return axios.post("/api/sales", model);
+                _context3.next = 7;
+                return axios.post("/api/sales", [model]);
 
               case 7:
-                salesLog = _context2.sent;
+                salesLog = _context3.sent;
                 axios.post("/api/orders/confirm/" + model.id, {
                   model: model
-                }).then(function (_ref2) {
-                  var data = _ref2.data;
+                }).then(function (_ref3) {
+                  var data = _ref3.data;
                   console.log(data);
                   Toast.fire({
                     icon: "success",
@@ -3040,10 +3066,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 9:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }))();
     }
   }
@@ -3060,83 +3086,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4376,64 +4325,90 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, claim it all!"
-      }).then(function (result) {
-        if (result.value) {
-          _this3.$Progress.start();
-
-          axios.post("/api/orders/claim-all").then( /*#__PURE__*/function () {
-            var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref) {
-              var data, ans;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      data = _ref.data;
-                      _context2.next = 3;
-                      return Swal.fire({
-                        title: "Thank you for choosing Farmerce",
-                        text: "We hope you liked the item",
-                        icon: "success",
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Okay"
-                      });
-
-                    case 3:
-                      ans = _context2.sent;
-                      Toast.fire({
-                        icon: "success",
-                        title: "Successfully claimed everything"
-                      });
-
-                      _this3.loadModels();
-
-                      _this3.$Progress.finish();
-
-                    case 7:
-                    case "end":
-                      return _context2.stop();
+      }).then( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(result) {
+          var salesLog;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  if (!result.value) {
+                    _context3.next = 6;
+                    break;
                   }
-                }
-              }, _callee2);
-            }));
 
-            return function (_x) {
-              return _ref2.apply(this, arguments);
-            };
-          }());
-        }
-      });
+                  _this3.$Progress.start();
+
+                  _context3.next = 4;
+                  return axios.post("/api/sales", _this3.models);
+
+                case 4:
+                  salesLog = _context3.sent;
+                  axios.post("/api/orders/claim-all").then( /*#__PURE__*/function () {
+                    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+                      var data, ans;
+                      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                        while (1) {
+                          switch (_context2.prev = _context2.next) {
+                            case 0:
+                              data = _ref2.data;
+                              _context2.next = 3;
+                              return Swal.fire({
+                                title: "Thank you for choosing Farmerce",
+                                text: "We hope you liked the item",
+                                icon: "success",
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Okay"
+                              });
+
+                            case 3:
+                              ans = _context2.sent;
+                              Toast.fire({
+                                icon: "success",
+                                title: "Successfully claimed everything"
+                              });
+
+                              _this3.loadModels();
+
+                              _this3.$Progress.finish();
+
+                            case 7:
+                            case "end":
+                              return _context2.stop();
+                          }
+                        }
+                      }, _callee2);
+                    }));
+
+                    return function (_x2) {
+                      return _ref3.apply(this, arguments);
+                    };
+                  }());
+
+                case 6:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }());
     },
-    claim: function claim(id) {
+    claim: function claim(id, model) {
       var _this4 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var res, ans;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var res, salesLog, ans;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context3.next = 2;
+                _context4.next = 2;
                 return Swal.fire({
                   title: "Are you sure?",
                   text: "You won't be able to revert this!",
@@ -4445,14 +4420,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                res = _context3.sent;
+                res = _context4.sent;
 
                 if (!res.value) {
-                  _context3.next = 9;
+                  _context4.next = 12;
                   break;
                 }
 
-                _context3.next = 6;
+                _context4.next = 6;
+                return axios.post("/api/sales", [model]);
+
+              case 6:
+                salesLog = _context4.sent;
+                _context4.next = 9;
                 return Swal.fire({
                   title: "Thank you for choosing Farmerce",
                   text: "We hope you liked the item",
@@ -4462,13 +4442,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   confirmButtonText: "Okay"
                 });
 
-              case 6:
-                ans = _context3.sent;
+              case 9:
+                ans = _context4.sent;
 
                 _this4.$Progress.start();
 
-                axios["delete"]("/api/orders/" + id).then(function (_ref3) {
-                  var data = _ref3.data;
+                axios["delete"]("/api/orders/" + id).then(function (_ref4) {
+                  var data = _ref4.data;
                   Toast.fire({
                     icon: "success",
                     title: "Product successfully claimed"
@@ -4479,12 +4459,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this4.$Progress.finish();
                 });
 
-              case 9:
+              case 12:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     }
   }
@@ -4664,8 +4644,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       productsWithSelected: [],
       searchText: "",
       addedToCart: false,
-      buttonAdded: "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110  focus:outline-none ",
-      buttonNotAdded: "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 focus:outline-none"
+      buttonAdded: "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-500 hover:text-gray-900  focus:outline-none",
+      buttonNotAdded: "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white focus:outline-none "
     };
   },
   mounted: function mounted() {
@@ -68358,7 +68338,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            "pl-3 py-3 whitespace-no-wrap border-b border-gray-200"
                         },
                         [
                           _c("div", { staticClass: "flex items-center" }, [
@@ -68408,7 +68388,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200"
                         },
                         [
                           _c(
@@ -68423,7 +68403,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200"
                         },
                         [
                           _c(
@@ -68442,7 +68422,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200"
                         },
                         [
                           _c(
@@ -68457,7 +68437,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200"
                         },
                         [
                           _c(
@@ -68479,7 +68459,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
                         },
                         [
                           _c("span", [_vm._v("₱")]),
@@ -68495,7 +68475,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
+                            "pr-3 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-900"
                         },
                         [
                           _c(
@@ -68576,7 +68556,7 @@ var render = function() {
               {
                 staticClass:
                   "bg-white shadow satext-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:text-green-500 focus:outline-none shadow-md py-2 px-6 inline-flex items-center",
-                on: { click: _vm.claimAll }
+                on: { click: _vm.confirmAll }
               },
               [
                 _c("span", { staticClass: "mr-2" }, [_vm._v("CONFIRM ALL")]),
@@ -68638,16 +68618,16 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
-          [_vm._v("Product")]
+          [_vm._v("Name")]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
           [_vm._v("Buyer")]
         ),
@@ -68656,7 +68636,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
           [_vm._v("Date")]
         ),
@@ -68665,7 +68645,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
           [_vm._v("Quantity")]
         ),
@@ -68674,7 +68654,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
           [_vm._v("Unit Price")]
         ),
@@ -68683,7 +68663,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
           [_vm._v("Total Price")]
         ),
@@ -68692,7 +68672,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
           },
           [_vm._v("Claim")]
         )
@@ -68725,7 +68705,7 @@ var render = function() {
     _c("div", { staticClass: "flex flex-col mt-4" }, [
       _c("div", { staticClass: "row pb-3" }, [
         _c("div", { staticClass: "h5 font-weight-bold col-6 pt-3" }, [
-          _vm._v("\n                Manage Products\n            ")
+          _vm._v("Manage Products")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-6 text-right" }, [
@@ -68783,10 +68763,10 @@ var render = function() {
             "div",
             {
               staticClass:
-                "align-middle inline-block scrolling-touch  min-w-full  shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
+                "align-middle inline-block scrolling-touch min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
             },
             [
-              _c("table", { staticClass: "min-w-full " }, [
+              _c("table", { staticClass: "min-w-full" }, [
                 _vm._m(0),
                 _vm._v(" "),
                 _c(
@@ -68798,7 +68778,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            "pl-3 py-3 text-center whitespace-no-wrap border-b border-gray-200"
                         },
                         [
                           _c("div", { staticClass: "flex items-center" }, [
@@ -68823,27 +68803,16 @@ var render = function() {
                                   staticClass:
                                     "text-sm leading-5 font-medium text-gray-900"
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(model.name) +
-                                      "\n                                        "
-                                  )
-                                ]
+                                [_vm._v(_vm._s(model.name))]
                               ),
                               _vm._v(" "),
                               _c(
                                 "div",
                                 {
-                                  staticClass: "text-sm leading-5 text-gray-500"
+                                  staticClass:
+                                    "text-sm text-left leading-5 text-gray-500"
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                                            Item #" +
-                                      _vm._s(model.id) +
-                                      "\n                                        "
-                                  )
-                                ]
+                                [_vm._v("Item #" + _vm._s(model.id))]
                               )
                             ])
                           ])
@@ -68854,22 +68823,16 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
                         },
-                        [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm._f("prettyDate")(model.created_at)) +
-                              "\n                            "
-                          )
-                        ]
+                        [_vm._v(_vm._s(_vm._f("prettyDate")(model.created_at)))]
                       ),
                       _vm._v(" "),
                       _c(
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200"
                         },
                         [
                           _c(
@@ -68878,9 +68841,9 @@ var render = function() {
                             [
                               _c("span", [_vm._v("₱")]),
                               _vm._v(
-                                "\n                                    " +
+                                "\n                  " +
                                   _vm._s(model.price) +
-                                  "\n                                "
+                                  "\n                "
                               )
                             ]
                           )
@@ -68891,13 +68854,29 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                        },
+                        [_vm._v(_vm._s(_vm._f("typeFilter")(model.type)))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                        },
+                        [_vm._v(_vm._s(model.qty))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
                         },
                         [
                           _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm._f("typeFilter")(model.type)) +
-                              "\n                            "
+                            _vm._s(_vm._f("prettyDescription")(model.desc))
                           )
                         ]
                       ),
@@ -68906,37 +68885,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                        },
-                        [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(model.qty) +
-                              "\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                        },
-                        [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm._f("prettyDescription")(model.desc)) +
-                              "\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
                         },
                         [
                           _c(
@@ -68982,14 +68931,14 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "px-6 py-4 whitespace-no-wrap border-b text-center border-gray-200 text-sm leading-5 font-medium"
+                            "px-0 py-3 text-center whitespace-no-wrap border-b text-center border-gray-200 text-sm leading-5 font-medium"
                         },
                         [
                           _c(
                             "svg",
                             {
                               staticClass:
-                                "bi fill-red text-center bi-trash cursor-pointer transition duration-500 ease-in-out hover:fill-red transform hover:scale-150",
+                                "bi fill-red mr-auto ml-auto text-center bi-trash cursor-pointer transition duration-500 ease-in-out hover:fill-red transform hover:scale-150",
                               attrs: {
                                 width: "2em",
                                 height: "1.3em",
@@ -69077,13 +69026,13 @@ var render = function() {
                                       { staticClass: "text-grey-darkest" },
                                       [
                                         _vm._v(
-                                          "\n                                                    " +
+                                          "\n                          " +
                                             _vm._s(
                                               _vm.editMode
                                                 ? "Edit Product"
                                                 : "Add New Product"
                                             ) +
-                                            "\n                                                "
+                                            "\n                        "
                                         )
                                       ]
                                     )
@@ -69191,11 +69140,7 @@ var render = function() {
                                                 staticClass:
                                                   "mt-2 text-base leading-normal"
                                               },
-                                              [
-                                                _vm._v(
-                                                  "\n                                                        Select an image\n                                                    "
-                                                )
-                                              ]
+                                              [_vm._v("Select an image")]
                                             )
                                           : _vm._e(),
                                         _vm._v(" "),
@@ -69410,7 +69355,7 @@ var render = function() {
                                             { attrs: { value: "1" } },
                                             [
                                               _vm._v(
-                                                "Livestock /\n                                                        each"
+                                                "\n                            Livestock /\n                            each\n                          "
                                               )
                                             ]
                                           ),
@@ -69420,7 +69365,7 @@ var render = function() {
                                             { attrs: { value: "0" } },
                                             [
                                               _vm._v(
-                                                "Plant /\n                                                        kilo"
+                                                "\n                            Plant /\n                            kilo\n                          "
                                               )
                                             ]
                                           )
@@ -69555,13 +69500,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(_vm.editMode ? "Update" : "Save") +
-                                    "\n                                    "
-                                )
-                              ]
+                              [_vm._v(_vm._s(_vm.editMode ? "Update" : "Save"))]
                             )
                           ]
                         )
@@ -69588,104 +69527,72 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "pl-3 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [
-            _vm._v(
-              "\n                                Name\n                            "
-            )
-          ]
+          [_vm._v("Name")]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [
-            _vm._v(
-              "\n                                Date Created\n                            "
-            )
-          ]
+          [_vm._v("Date Created")]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [
-            _vm._v(
-              "\n                                Price\n                            "
-            )
-          ]
+          [_vm._v("Price")]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [
-            _vm._v(
-              "\n                                Type\n                            "
-            )
-          ]
+          [_vm._v("Type")]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [
-            _vm._v(
-              "\n                                Quantity\n                            "
-            )
-          ]
+          [_vm._v("Quantity")]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [
-            _vm._v(
-              "\n                                Description\n                            "
-            )
-          ]
+          [_vm._v("Description")]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [
-            _vm._v(
-              "\n                                Edit\n                            "
-            )
-          ]
+          [_vm._v("Edit")]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [
-            _vm._v(
-              "\n                                Delete\n                            "
-            )
-          ]
+          [_vm._v("Delete")]
         )
       ])
     ])
@@ -70600,7 +70507,7 @@ var render = function() {
                                     "bg-white shadow satext-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:text-green-500 focus:outline-none shadow-md py-2 px-6 inline-flex items-center",
                                   on: {
                                     click: function($event) {
-                                      return _vm.claim(model.id)
+                                      return _vm.claim(model.id, model)
                                     }
                                   }
                                 },
@@ -71052,14 +70959,14 @@ var render = function() {
               {
                 key: model.id,
                 staticClass:
-                  "w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col cursor-pointer transition duration-500 ease-in-out transform"
+                  "w-full md:w-1/3 xl:w-1/4 p-6 bg-white flex flex-col cursor-pointer transition duration-500 ease-in-out transform"
               },
               [
                 _c(
                   "div",
                   {
                     staticClass:
-                      "max-w-xs bg-white-100 border shadow-sm rounded-lg overflow-hidden my-10"
+                      "max-w-xs bg-white-100 shadow rounded-lg overflow-hidden my-10"
                   },
                   [
                     _c("div", { staticClass: "px-4 py-2" }, [
