@@ -208,11 +208,13 @@ export default {
     },
     methods: {
         async loadModels() {
+            this.$Progress.start();
             const res = await axios.get("/api/my-orders");
-            console.log(res.data);
+
             if (res) {
                 this.models = res.data;
                 this.computeOverallPrice();
+                this.$Progress.finish();
             }
         },
         computeOverallPrice() {

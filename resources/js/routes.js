@@ -56,6 +56,10 @@ export default new VueRouter({
                     component: require("./components/ManageOrders.vue").default
                 }
             ]
+        },
+        {
+            path: "/*",
+            component: require("./components/404Page.vue").default
         }
     ],
     mode: "history"

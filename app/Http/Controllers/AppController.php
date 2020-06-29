@@ -22,6 +22,7 @@ class AppController extends Controller
     }
     public function admin()
     {
+        $this->authorize('is-admin');
         return view('admin');
     }
    

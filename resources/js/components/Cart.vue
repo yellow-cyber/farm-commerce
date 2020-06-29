@@ -210,9 +210,10 @@ export default {
     },
     methods: {
         async loadModels() {
+            this.$Progress.start();
             const res = await axios.get("/api/cart");
             this.models = res.data;
-            console.log(this.models[0]);
+            this.$Progress.finish();
             this.computeOverallPrice();
         },
         computeOverallPrice() {

@@ -146,10 +146,12 @@ export default {
     },
     methods: {
         async loadModels() {
+            this.$Progress.start();
             const res = await axios.get("/api/sales");
 
             if (res) {
                 this.models = res.data;
+                this.$Progress.finish();
             }
         }
     }

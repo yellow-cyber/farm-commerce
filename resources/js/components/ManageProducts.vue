@@ -538,9 +538,11 @@ export default {
                 });
         },
         loadModels() {
+            this.$Progress.start();
             Fire.$emit("updatedProductsTable");
             axios.get("/api/" + this.modelName).then(res => {
                 this.models = res.data;
+                this.$Progress.finish();
             });
         },
         deleteModel(id) {

@@ -394,9 +394,11 @@ export default {
                 });
         },
         loadUser() {
+            this.$Progress.start();
             Fire.$emit("updatedUsersTable");
             axios.get("/api/user").then(res => {
                 this.users = res.data[0];
+                this.$Progress.finish();
             });
         },
         deleteUser(id) {

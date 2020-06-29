@@ -44,55 +44,6 @@ export default {
         statistics: Statistics,
         transactions,
         productsSold
-    },
-    data() {
-        return {
-            chartData: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            labels: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec"
-            ],
-            tooltipContent: "",
-            tooltipOpen: false,
-            tooltipX: 0,
-            tooltipY: 0,
-            totalSales: 0
-        };
-    },
-    async mounted() {
-        const res = await axios.get("/api/sales");
-        this.totalSales = res.data.length;
-        res.data.forEach(data => {
-            let date = moment(data.created_at).format("MMM");
-            this.labels.forEach((label, i) => {
-                if (date == label) {
-                    this.chartData[i] += 1;
-                }
-            });
-        });
-    },
-    methods: {
-        showTooltip(e) {
-            this.tooltipContent = e.target.textContent;
-            this.tooltipX = e.target.offsetLeft - e.target.clientWidth;
-            this.tooltipY = e.target.clientHeight + e.target.clientWidth;
-        },
-        hideTooltip(e) {
-            this.tooltipContent = "";
-            this.tooltipOpen = false;
-            this.tooltipX = 0;
-            this.tooltipY = 0;
-        }
     }
 };
 </script>

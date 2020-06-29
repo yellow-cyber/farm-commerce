@@ -223,12 +223,14 @@ export default {
     },
     methods: {
         async loadModels() {
+            this.$Progress.start();
             Fire.$emit("updatedOrdersTable");
             const res = await axios.get("/api/orders");
 
             if (res) {
                 this.models = res.data;
                 this.computeOverallPrice();
+                this.$Progress.finish();
             }
         },
         computeOverallPrice() {

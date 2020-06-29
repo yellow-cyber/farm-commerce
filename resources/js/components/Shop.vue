@@ -212,6 +212,7 @@ export default {
             }
         },
         async loadUserCart() {
+            this.$Progress.start();
             const res = await axios.get("api/cart");
             let cart_products = res.data;
 
@@ -230,6 +231,7 @@ export default {
             this.featured = this.models[
                 Math.floor(Math.random() * this.models.length)
             ];
+            this.$Progress.finish();
         }
     },
     computed: {

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
-  <div>
+@can('is-admin', User::class)
+<div>
     <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200 font-roboto">
         <div x-bind:class="sidebarOpen ? 'block' : 'hidden'" x-on:click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
        
@@ -21,7 +21,9 @@
             </main>
         </div>
     </div>
-</div>
+</div>  
+@endcan
+  
 
 
 
