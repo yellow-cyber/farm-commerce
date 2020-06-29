@@ -8,7 +8,7 @@ class Product extends Model
 {
   
     protected $fillable = [
-        'name', 'desc', 'price','qty','type'
+        'name', 'desc', 'price','qty','type','img'
     ];
 
     public function carts()
