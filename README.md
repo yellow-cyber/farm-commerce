@@ -16,7 +16,7 @@ Whether an egg or a carabao, Farmerce offers farming supplies at the best prices
 
 Development
 
-1. Create an account
+1. Create an account.
 2. Run php artisan tinker
 3. \$u = App\User::find(1)
 4. \$u->profile->role = 1
