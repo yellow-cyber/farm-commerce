@@ -119,19 +119,9 @@
                 {{ model.price }}
               </h1>
               <button
-                @click="addToCart(model.id)"
-                :class="
-                                    model.selected
-                                        ? buttonAdded
-                                        : buttonNotAdded
-                                "
-              >
-                {{
-                model.selected
-                ? "Added to cart"
-                : "Add to cart"
-                }}
-              </button>
+                @click="addToCart($event,model.id)"
+                :class="model.selected?buttonAdded:buttonNotAdded"
+              >{{model.selected? "Added to cart": "Add to cart"}}</button>
             </div>
           </div>
         </div>
@@ -158,17 +148,19 @@ export default {
       productsWithSelected: [],
       searchText: "",
       addedToCart: false,
+      buttonStyle:
+        "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white   focus:outline-none ",
       buttonAdded:
-        "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-white hover:text-gray-900 focus:bg-white focus:text-gray-900  focus:outline-none",
+        "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-white hover:text-gray-900   focus:outline-none",
       buttonNotAdded:
-        "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white focus:bg-green-600 focus:text-white  focus:outline-none "
+        "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white   focus:outline-none "
     };
   },
   mounted() {
     this.loadUserCart();
   },
   methods: {
-    async addToCart(id) {
+    async addToCart(e, id) {
       this.$Progress.start();
 
       const res = await axios.put("/api/cart/" + id);
