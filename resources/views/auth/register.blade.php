@@ -152,8 +152,8 @@
                         @if (Route::has('register'))
 
                         <div class="text-center mt-4">
-                            <a class="no-underline hover:underline text-blue-dark text-xs" href="{{ route('register') }}">
-                                Dont have an account?
+                            <a class="no-underline hover:underline text-blue-dark text-xs" href="{{ route('login') }}">
+                                Already have an account?
                             </a>
                         </div>
                         @endif

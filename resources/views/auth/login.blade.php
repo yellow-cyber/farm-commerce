@@ -11,7 +11,7 @@
                         <form class="form-horizontal w-3/4 mx-auto" method="POST" action="{{ route('login') }}">
                            @csrf
                             <div class="flex flex-col mt-4">
-                                <input id="email" type="email" class="flex-grow h-8 px-2 border rounded border-grey-400 form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" placeholder="your_email@email.com" type="email" class="flex-grow h-8 px-2 border rounded border-grey-400 form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                
                                 @error('email')
@@ -22,7 +22,7 @@
                            
                             </div>
                             <div class="flex flex-col mt-4">
-                                <input  id="password" type="password" class="form-control @error('password') is-invalid @enderror flex-grow h-8 px-2 rounded border border-grey-400" name="password" required autocomplete="current-password">
+                                <input  id="password" placeholder="********" type="password" class="form-control @error('password') is-invalid @enderror flex-grow h-8 px-2 rounded border border-grey-400" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">

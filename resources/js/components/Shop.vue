@@ -159,9 +159,9 @@ export default {
       searchText: "",
       addedToCart: false,
       buttonAdded:
-        "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-white hover:text-gray-900  focus:outline-none",
+        "px-3 py-1 bg-green-600 text-sm text-gray-200 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-white hover:text-gray-900 focus:bg-white focus:text-gray-900  focus:outline-none",
       buttonNotAdded:
-        "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white  focus:outline-none "
+        "px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded transition duration-500 ease-in-out transform hover:scale-110 hover:bg-green-600 hover:text-white focus:bg-green-600 focus:text-white  focus:outline-none "
     };
   },
   mounted() {
