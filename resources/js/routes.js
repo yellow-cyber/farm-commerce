@@ -40,7 +40,7 @@ export default new VueRouter({
             children: [
                 {
                     path: "",
-                    component: require("./components/ManageUsers.vue").default
+                    component: require("./components/Dashboard.vue").default
                 },
                 {
                     path: "users",

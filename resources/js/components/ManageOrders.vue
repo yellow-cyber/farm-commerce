@@ -17,6 +17,12 @@
                 >Product</th>
                 <th
                   class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                >Buyer</th>
+                <th
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
+                >Date</th>
+                <th
+                  class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-900 uppercase tracking-wider"
                 >Quantity</th>
 
                 <th
@@ -52,6 +58,12 @@
                       >{{ model.pivot.shipping_address }} - {{ model.pivot.phone_number}}</div>
                     </div>
                   </div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div class="text-sm leading-5 text-gray-900">{{ model.pivot.qty}}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div class="text-sm leading-5 text-gray-900">{{ model.created_at |prettyDate}}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                   <div class="text-sm leading-5 text-gray-900">{{ model.pivot.qty}}</div>
@@ -151,6 +163,7 @@ export default {
   },
   methods: {
     async loadModels() {
+      Fire.$emit("updatedOrdersTable");
       const res = await axios.get("/api/orders");
 
       if (res) {
@@ -164,10 +177,6 @@ export default {
         this.overallPrice += model.pivot.total_price;
       });
     },
-    changeQty(e, index, model) {
-      model.pivot.total_price = model.pivot.qty * model.price;
-      this.computeOverallPrice();
-    },
     claimAll() {
       Swal.fire({
         title: "Are you sure?",
@@ -180,6 +189,7 @@ export default {
       }).then(result => {
         if (result.value) {
           this.$Progress.start();
+          Fire.$emit("claimedOrders", this.models.length);
           axios.post("/api/orders/claim-all").then(({ data }) => {
             Toast.fire({
               icon: "success",
@@ -203,6 +213,8 @@ export default {
       });
       if (res.value) {
         this.$Progress.start();
+
+        const salesLog = await axios.post("/api/sales", model);
         axios
           .post("/api/orders/confirm/" + model.id, {
             model

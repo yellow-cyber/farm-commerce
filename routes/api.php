@@ -22,7 +22,8 @@ Route::apiResources([
     'user' => 'API\UserController',
     'products'=>'API\ProductController',
     'cart'=>'API\CartController',
-    'orders'=>'API\OrdersController'
+    'orders'=>'API\OrdersController',
+    'sales'=>'API\SalesHistoryController'
 ]);
 Route::post('cart/checkout',"API\CartController@checkout");
 Route::get('my-orders',"API\OrdersController@authIndex");

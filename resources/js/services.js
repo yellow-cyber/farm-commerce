@@ -2,7 +2,7 @@ import Vue from "vue";
 
 /** Moment JS */
 import moment from "moment";
-
+window.moment = moment;
 /** Progress Bar */
 import VueProgressBar from "vue-progressbar";
 
@@ -19,6 +19,9 @@ Vue.use(VueProgressBar, {
 /** Sweet Alert 2 */
 import Swal from "sweetalert2";
 window.Swal = Swal;
+
+import Paginate from "vuejs-paginate";
+Vue.component("paginate", Paginate);
 
 let Toast = Swal.mixin({
     toast: true,

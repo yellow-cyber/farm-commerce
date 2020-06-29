@@ -106,7 +106,9 @@ class CartController extends Controller
                     'qty'=>  $qty,
                     'total_price'=> $totalPrice,
                     'phone_number'=>$phone,
-                    'shipping_address'=>$address
+                    'shipping_address'=>$address,
+                    'buyer_id'=>auth('api')->user()->id,
+
             ]);
         }
         $cart->products()->detach();
