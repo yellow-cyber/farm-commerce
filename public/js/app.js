@@ -3485,6 +3485,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -68705,7 +68780,7 @@ var render = function() {
     _c("div", { staticClass: "flex flex-col mt-4" }, [
       _c("div", { staticClass: "row pb-3" }, [
         _c("div", { staticClass: "h5 font-weight-bold col-6 pt-3" }, [
-          _vm._v("Manage Products")
+          _vm._v("\n                Manage Products\n            ")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-6 text-right" }, [
@@ -68803,7 +68878,13 @@ var render = function() {
                                   staticClass:
                                     "text-sm leading-5 font-medium text-gray-900"
                                 },
-                                [_vm._v(_vm._s(model.name))]
+                                [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(model.name) +
+                                      "\n                                        "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c(
@@ -68812,7 +68893,13 @@ var render = function() {
                                   staticClass:
                                     "text-sm text-left leading-5 text-gray-500"
                                 },
-                                [_vm._v("Item #" + _vm._s(model.id))]
+                                [
+                                  _vm._v(
+                                    "\n                                            Item #" +
+                                      _vm._s(model.id) +
+                                      "\n                                        "
+                                  )
+                                ]
                               )
                             ])
                           ])
@@ -68825,7 +68912,13 @@ var render = function() {
                           staticClass:
                             "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
                         },
-                        [_vm._v(_vm._s(_vm._f("prettyDate")(model.created_at)))]
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm._f("prettyDate")(model.created_at)) +
+                              "\n                            "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
@@ -68841,9 +68934,9 @@ var render = function() {
                             [
                               _c("span", [_vm._v("₱")]),
                               _vm._v(
-                                "\n                  " +
+                                "\n                                    " +
                                   _vm._s(model.price) +
-                                  "\n                "
+                                  "\n                                "
                               )
                             ]
                           )
@@ -68856,16 +68949,13 @@ var render = function() {
                           staticClass:
                             "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
                         },
-                        [_vm._v(_vm._s(_vm._f("typeFilter")(model.type)))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                        },
-                        [_vm._v(_vm._s(model.qty))]
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm._f("typeFilter")(model.type)) +
+                              "\n                            "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
@@ -68876,7 +68966,24 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            _vm._s(_vm._f("prettyDescription")(model.desc))
+                            "\n                                " +
+                              _vm._s(model.qty) +
+                              "\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "px-0 py-3 text-center whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm._f("prettyDescription")(model.desc)) +
+                              "\n                            "
                           )
                         ]
                       ),
@@ -69026,13 +69133,13 @@ var render = function() {
                                       { staticClass: "text-grey-darkest" },
                                       [
                                         _vm._v(
-                                          "\n                          " +
+                                          "\n                                                    " +
                                             _vm._s(
                                               _vm.editMode
                                                 ? "Edit Product"
                                                 : "Add New Product"
                                             ) +
-                                            "\n                        "
+                                            "\n                                                "
                                         )
                                       ]
                                     )
@@ -69140,7 +69247,11 @@ var render = function() {
                                                 staticClass:
                                                   "mt-2 text-base leading-normal"
                                               },
-                                              [_vm._v("Select an image")]
+                                              [
+                                                _vm._v(
+                                                  "Select an\n                                                        image"
+                                                )
+                                              ]
                                             )
                                           : _vm._e(),
                                         _vm._v(" "),
@@ -69355,7 +69466,7 @@ var render = function() {
                                             { attrs: { value: "1" } },
                                             [
                                               _vm._v(
-                                                "\n                            Livestock /\n                            each\n                          "
+                                                "\n                                                        Livestock / each\n                                                    "
                                               )
                                             ]
                                           ),
@@ -69365,7 +69476,7 @@ var render = function() {
                                             { attrs: { value: "0" } },
                                             [
                                               _vm._v(
-                                                "\n                            Plant /\n                            kilo\n                          "
+                                                "\n                                                        Plant / kilo\n                                                    "
                                               )
                                             ]
                                           )
@@ -69500,7 +69611,13 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_vm._v(_vm._s(_vm.editMode ? "Update" : "Save"))]
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(_vm.editMode ? "Update" : "Save") +
+                                    "\n                                    "
+                                )
+                              ]
                             )
                           ]
                         )
@@ -69529,7 +69646,11 @@ var staticRenderFns = [
             staticClass:
               "pl-3 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [_vm._v("Name")]
+          [
+            _vm._v(
+              "\n                                Name\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -69538,7 +69659,11 @@ var staticRenderFns = [
             staticClass:
               "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [_vm._v("Date Created")]
+          [
+            _vm._v(
+              "\n                                Date Created\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -69547,7 +69672,11 @@ var staticRenderFns = [
             staticClass:
               "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [_vm._v("Price")]
+          [
+            _vm._v(
+              "\n                                Price\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -69556,7 +69685,11 @@ var staticRenderFns = [
             staticClass:
               "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [_vm._v("Type")]
+          [
+            _vm._v(
+              "\n                                Type\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -69565,7 +69698,11 @@ var staticRenderFns = [
             staticClass:
               "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [_vm._v("Quantity")]
+          [
+            _vm._v(
+              "\n                                Quantity\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -69574,7 +69711,11 @@ var staticRenderFns = [
             staticClass:
               "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [_vm._v("Description")]
+          [
+            _vm._v(
+              "\n                                Description\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -69583,16 +69724,24 @@ var staticRenderFns = [
             staticClass:
               "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [_vm._v("Edit")]
+          [
+            _vm._v(
+              "\n                                Edit\n                            "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
           "th",
           {
             staticClass:
-              "px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+              "pr-3 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
           },
-          [_vm._v("Delete")]
+          [
+            _vm._v(
+              "\n                                Delete\n                            "
+            )
+          ]
         )
       ])
     ])
