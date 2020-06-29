@@ -49,7 +49,7 @@ Vue.filter("roleFilter", function(value) {
 });
 Vue.filter("typeFilter", function(value) {
     if (value) return "Livestock";
-    else return "Plant";
+    else return "Agri-Farm";
 });
 Vue.filter("prettyDate", function(value) {
     return moment(value).format("LLL");

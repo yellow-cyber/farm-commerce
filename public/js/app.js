@@ -90115,7 +90115,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("roleFilter", function (value)
   if (value) return "Administrator";else return "Standard User";
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("typeFilter", function (value) {
-  if (value) return "Livestock";else return "Plant";
+  if (value) return "Livestock";else return "Agri-Farm";
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("prettyDate", function (value) {
   return moment__WEBPACK_IMPORTED_MODULE_1___default()(value).format("LLL");
