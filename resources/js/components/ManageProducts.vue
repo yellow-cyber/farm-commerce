@@ -77,7 +77,11 @@
                                     Edit
                                 </th>
                                 <th
+<<<<<<< HEAD
                                     class="pr-3 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+=======
+                                    class="px-0 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+>>>>>>> feature-dashboard-sales-log
                                 >
                                     Delete
                                 </th>
@@ -85,7 +89,11 @@
                         </thead>
 
                         <tbody class="bg-white">
+<<<<<<< HEAD
                             <tr v-for="model in models" :key="model.id">
+=======
+                            <tr v-for="model in filteredModels" :key="model.id">
+>>>>>>> feature-dashboard-sales-log
                                 <td
                                     class="pl-3 py-3 text-center whitespace-no-wrap border-b border-gray-200"
                                 >
@@ -102,14 +110,22 @@
                                         </div>
                                         <div class="ml-4">
                                             <div
+<<<<<<< HEAD
                                                 class="text-sm leading-5 font-medium text-gray-900"
+=======
+                                                class="text-sm text-left leading-5 font-medium text-gray-900"
+>>>>>>> feature-dashboard-sales-log
                                             >
                                                 {{ model.name }}
                                             </div>
                                             <div
                                                 class="text-sm text-left leading-5 text-gray-500"
                                             >
+<<<<<<< HEAD
                                                 Item #{{ model.id }}
+=======
+                                                Product - {{ model.id }}
+>>>>>>> feature-dashboard-sales-log
                                             </div>
                                         </div>
                                     </div>
@@ -486,6 +502,7 @@ export default {
                 type: 0
             }),
             modelName: "products",
+<<<<<<< HEAD
             models: {},
             editMode: false,
             image: null,
@@ -495,6 +512,21 @@ export default {
     mounted() {
         this.loadModels();
     },
+=======
+            models: [],
+            editMode: false,
+            image: null,
+            noImage: true,
+            searchText: ""
+        };
+    },
+    mounted() {
+        this.loadModels();
+        Fire.$on("onSearchChange", e => {
+            this.searchText = e;
+        });
+    },
+>>>>>>> feature-dashboard-sales-log
     methods: {
         newModal() {
             this.noImage = true;
@@ -633,6 +665,18 @@ export default {
             }
             return img;
         }
+<<<<<<< HEAD
+=======
+    },
+    computed: {
+        filteredModels() {
+            return this.models.filter(model => {
+                return model.name
+                    .toLowerCase()
+                    .includes(this.searchText.toLowerCase());
+            });
+        }
+>>>>>>> feature-dashboard-sales-log
     }
 };
 </script>
