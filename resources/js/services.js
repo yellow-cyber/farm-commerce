@@ -55,7 +55,7 @@ Vue.filter("prettyDate", function(value) {
     return moment(value).format("LLL");
 });
 Vue.filter("dec2", function(value) {
-    return value.toFixed(2);
+    return parseFloat(value).toFixed(2);
 });
 Vue.filter("prettyDescription", function(value) {
     if (value.length > 15) return value.substring(0, 15) + "...";

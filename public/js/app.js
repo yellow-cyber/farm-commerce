@@ -89755,7 +89755,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("prettyDate", function (value)
   return moment__WEBPACK_IMPORTED_MODULE_1___default()(value).format("LLL");
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("dec2", function (value) {
-  return value.toFixed(2);
+  return parseFloat(value).toFixed(2);
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("prettyDescription", function (value) {
   if (value.length > 15) return value.substring(0, 15) + "...";else return value;
