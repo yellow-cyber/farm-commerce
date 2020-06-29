@@ -17,7 +17,7 @@
                     <div class="hero-image col-span-6">
                         <div class="py-6">
                             <div
-                                class="flex h-32 max-w-md bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+                                class="flex h-full max-w-md bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                             >
                                 <div class="w-1/3 bg-cover">
                                     <img
@@ -28,20 +28,15 @@
                                         class="h-full w-full object-cover"
                                     />
                                 </div>
-                                <div class="w-2/3 p-4">
+                                <div class="w-2/3 p-4 ">
                                     <h1
                                         class="text-gray-900 font-bold text-2xl"
                                     >
                                         {{ featured.name }}
                                     </h1>
-                                    <p class="mt-2 text-gray-600 text-sm">
+                                    <p class="mt-2  text-gray-600 text-sm">
                                         {{ featured.desc }}
                                     </p>
-                                    <h1
-                                        class="text-gray-700 pt-2 font-bold text-xl"
-                                    >
-                                        <span>₱ {{ featured.price }}</span>
-                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -183,9 +178,11 @@ export default {
             modelName: "products",
             models: [],
             featured: {
+                id: "",
                 name: "",
                 desc: "",
-                img: "product"
+                img: "product",
+                price: ""
             },
             productsWithSelected: [],
             searchText: "",

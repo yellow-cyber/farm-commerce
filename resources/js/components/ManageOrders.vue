@@ -245,7 +245,7 @@ export default {
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, claim it all!"
+                confirmButtonText: "Yes, confirm it all!"
             }).then(async result => {
                 if (result.value) {
                     this.$Progress.start();

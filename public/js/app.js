@@ -2982,7 +2982,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, claim it all!"
+        confirmButtonText: "Yes, confirm it all!"
       }).then( /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(result) {
           var salesLog;
@@ -5033,11 +5033,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   data: function data() {
@@ -5045,9 +5040,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       modelName: "products",
       models: [],
       featured: {
+        id: "",
         name: "",
         desc: "",
-        img: "product"
+        img: "product",
+        price: ""
       },
       productsWithSelected: [],
       searchText: "",
@@ -72205,7 +72202,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "flex h-32 max-w-md bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+                          "flex h-full max-w-md bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                       },
                       [
                         _c("div", { staticClass: "w-1/3 bg-cover" }, [
@@ -72218,7 +72215,7 @@ var render = function() {
                           })
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "w-2/3 p-4" }, [
+                        _c("div", { staticClass: "w-2/3 p-4 " }, [
                           _c(
                             "h1",
                             { staticClass: "text-gray-900 font-bold text-2xl" },
@@ -72233,26 +72230,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "p",
-                            { staticClass: "mt-2 text-gray-600 text-sm" },
+                            { staticClass: "mt-2  text-gray-600 text-sm" },
                             [
                               _vm._v(
                                 "\n                                    " +
                                   _vm._s(_vm.featured.desc) +
                                   "\n                                "
                               )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "h1",
-                            {
-                              staticClass:
-                                "text-gray-700 pt-2 font-bold text-xl"
-                            },
-                            [
-                              _c("span", [
-                                _vm._v("₱ " + _vm._s(_vm.featured.price))
-                              ])
                             ]
                           )
                         ])
