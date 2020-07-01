@@ -11,110 +11,114 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
+      DB::table('products')->insert([
+        'name' => "Native Chicken", 
+        'desc' => "Free-range chickens", 
+        'price' => 215, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'chicken_native.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);			
 
-      //ANNOUNCEMENT
-      //LIVESTOCK = 1
-      //AGRIFARM = 0
-       
-        /** Note Continue didi ha ubos, same la na ada ha igbaw*/
-	 DB::table('products')->insert([
-				'name' => "Rice", 
-				'desc' => "Premium, low-cost rice milled with peak efficiency to ensure quality and freshness. Sold per sack.", 
-				'price' => 2000, 
-				'qty' => 100, 
-				'type' => 0, 
-				'img'=>'rice.jpg', 
-				'created_at'=>'2020-06-29 11:45:26', 
+    DB::table('products')->insert([
+        'name' => "Broiler Chicken", 
+        'desc' => "45 days", 
+        'price' => 110, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'chicken_broiler.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);		
+
+    DB::table('products')->insert([
+        'name' => "Turkey", 
+        'desc' => "Great for roasting.", 
+        'price' => 430, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'turkey.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);		
+
+    DB::table('products')->insert([
+        'name' => "Duck", 
+        'desc' => "Ready to lay eggs", 
+        'price' => 80, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'duck.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);		
+
+    DB::table('products')->insert([
+        'name' => "Guinea Fowl", 
+        'desc' => "Very rich in proein", 
+        'price' => 450, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'guineafowl.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);	
+
+    DB::table('products')->insert([
+        'name' => "Pig", 
+        'desc' => "Nice and plump. Pigles also available", 
+        'price' => 120, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'pig.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);		
+
+    DB::table('products')->insert([
+        'name' => "Rabbit", 
+        'desc' => "Fluffy and adorable rabbits.", 
+        'price' => 800, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'rabbit.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
         ]);			
-         DB::table('products')->insert([
-              'name' => "Marcotted Calamansi", 
-              'desc' => "Fresh and flavorful calamansi grown through air-layering and sold by the bunch.",
-              'price' => 70, 
-              'qty' => 100, 
-              'type' => 0, 
-              'img'=>'calamansi.jpg', 
-              'created_at'=>'2020-06-29 11:45:26', 
-        ]);			
-         DB::table('products')->insert([
-              'name' => "Marcotted Jackfruit", 
-              'desc' => "Large, moderately ripened jackfruit with a mildly sweet taste and balanced aroma.", 
-              'price' => 70, 
-              'qty' => 100, 
-              'type' => 0, 
-              'img'=>'jackfruit.jpg', 
-              'created_at'=>'2020-06-29 11:45:26', 
-        ]);
-         DB::table('products')->insert([
-                  'name' => "Madre de Agua", 
-                  'desc' => "Carefully-grown Tricanthera with a variety of medical and agricultural uses. Sold by bundle.", 
-                  'price' => 60, 
-                  'qty' => 100, 
-                  'type' => 0, 
-                  'img'=>'madredeagua.jpg', 
-                  'created_at'=>'2020-06-29 11:45:26', 
-        ]);		
-         DB::table('products')->insert([
-                  'name' => "Bonsai Plants", 
-                  'desc' => "Beautiful, small-scale plants that closely mimic full-sized trees. Comes in a variety of aesthetic forms.", 
-                  'price' => 1500, 
-                  'qty' => 100, 
-                  'type' => 0, 
-                  'img'=>'bonsai.jpg', 
-                  'created_at'=>'2020-06-29 11:45:26', 
-        ]);		
-         DB::table('products')->insert([
-                  'name' => "Orchids", 
-                  'desc' => "Large, aromatic flowers that come in a large assortment of vibrant colorations and sold in equally large boquets.", 
-                  'price' => 500, 
-                  'qty' => 100, 
-                  'type' => 0, 
-                  'img'=>'orchids.jpg', 
-                  'created_at'=>'2020-06-29 11:45:26', 
-        ]);
-        DB::table('products')->insert([
-                  'name' => "Spring Onions", 
-                  'desc' => "Fresh spring onions that are perfect whether eaten raw, cooked or as spices.", 
-                  'price' => 90, 
-                  'qty' => 100, 
-                  'type' => 0, 
-                  'img'=>'springonion.jpg', 
-                  'created_at'=>'2020-06-29 11:45:26', 
-        ]);
-         DB::table('products')->insert([
-                  'name' => "Avocado", 
-                  'desc' => "Ripe, delicious avocados that have a vast array of uses from salads to smoothies.", 
-                  'price' => 80, 
-                  'qty' => 100, 
-                  'type' => 0, 
-                  'img'=>'avocado.jpg', 
-                  'created_at'=>'2020-06-29 11:45:26', 
-        ]);		
-         DB::table('products')->insert([
-                  'name' => "Organic Fertilizer", 
-                  'desc' => "Hiqh-quality fertilizer, specially-mixed to ensure rapid soil enrichment and sustainability. Sold per sack.", 
-                  'price' => 600, 
-                  'qty' => 100, 
-                  'type' => 0, 
-                  'img'=>'fertilizer.jpg', 
-                  'created_at'=>'2020-06-29 11:45:26', 
-        ]);		
-         DB::table('products')->insert([
-                  'name' => "Chicken Feed", 
-                  'desc' => "Nutrient-rich chicken feed made from grains, soybeans and adequate mineral suppliments.", 
-                  'price' => 1500, 
-                  'qty' => 100, 
-                  'type' => 0, 
-                  'img'=>'chickenfeed.jpg', 
-                  'created_at'=>'2020-06-29 11:45:26', 
-        ]);		
-         DB::table('products')->insert([
-                  'name' => "Pig Feed", 
-                  'desc' => "Quality, high-energy and protein-rich pig feed made from rice bran and distillers' grains.", 
-                  'price' => 99.79, 
-                  'qty' => 100, 
-                  'type' => 0,
-                  'img'=>'pigfeed.jpg', 
-                  'created_at'=>'2020-06-29 11:45:26', 
+
+    DB::table('products')->insert([
+        'name' => "Goat", 
+        'desc' => "Very healthy tot eat", 
+        'price' => 330, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'goat.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);	
+
+    DB::table('products')->insert([
+        'name' => "Tilapia", 
+        'desc' => "Fresh tilapia", 
+        'price' => 100, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'tilapia.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);	
+
+    DB::table('products')->insert([
+        'name' => "Fresh eggs", 
+        'desc' => "Freshly-laid eggs", 
+        'price' => 220, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'egg_fresh.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
+        ]);	
+
+    DB::table('products')->insert([
+        'name' => "Salted eggs", 
+        'desc' => "Organically-salted eggs", 
+        'price' => 300, 
+        'qty' => 100, 
+        'type' => 1, 
+        'img'=>'egg_salt.jpg', 
+        'created_at'=>'2020-06-29 11:45:26', 
         ]);
     }
 }
